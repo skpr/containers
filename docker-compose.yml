@@ -1,0 +1,46 @@
+version: "3"
+
+services:
+  nginx:
+    image: skpr/nginx:latest
+    ports:
+      - 80:80
+    volumes:
+      - .:/data
+
+  php-fpm:
+    image: skpr/php-fpm:latest
+    volumes:
+      - .:/data
+
+  mysql:
+    image: mariadb
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=local
+      - MYSQL_USER=drupal
+      - MYSQL_PASSWORD=drupal
+
+  prometheus:
+    image: prom/prometheus:v2.1.0
+    ports:
+      - 9090:9090
+    volumes:
+      - ./prometheus/:/etc/prometheus/
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+
+  nginx-exporter:
+    image: nginx/nginx-prometheus-exporter:0.2.0
+    network_mode: service:nginx
+
+  php-fpm-exporter:
+    image: hipages/php-fpm_exporter
+    network_mode: service:php-fpm
+
+  mysql-exporter:
+    image: prom/mysqld-exporter
+    environment:
+      - DATA_SOURCE_NAME=root:root@(127.0.0.1:3306)/
+    network_mode: service:mysql
