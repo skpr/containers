@@ -6,14 +6,14 @@ define build_and_push
 endef
 
 base:
-	$(call build_and_push,base,skpr/base:latest)
+	$(call build_and_push,base,skpr/base:1.x)
 
 nginx: base
-	$(call build_and_push,nginx,skpr/nginx:latest)
+	$(call build_and_push,nginx,skpr/nginx:1.x)
 
 php: base
-	$(call build_and_push,php/base,skpr/php:latest)
-	$(call build_and_push,php/fpm,skpr/php-fpm:latest)
-	$(call build_and_push,php/cli,skpr/php-cli:latest)
+	$(call build_and_push,php/base,skpr/php:7.2-1.x)
+	$(call build_and_push,php/fpm,skpr/php-fpm:7.2-1.x)
+	$(call build_and_push,php/cli,skpr/php-cli:7.2-1.x)
 
 .PHONY: base nginx php

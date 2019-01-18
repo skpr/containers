@@ -1,4 +1,4 @@
-FROM skpr/base:latest
+FROM skpr/base:1.x
 
 RUN apk --update --no-cache add nginx
 

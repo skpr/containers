@@ -1,4 +1,4 @@
-FROM skpr/php:latest
+FROM skpr/php:7.2-1.x
 
 RUN apk --update --no-cache add \
       bash \
