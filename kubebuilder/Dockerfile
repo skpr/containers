@@ -1,7 +1,8 @@
 FROM golang:1.11
 
 RUN go get github.com/golang/dep/cmd/dep && \
-    go get sigs.k8s.io/kustomize
+    go get sigs.k8s.io/kustomize && \
+    go get golang.org/x/lint/golint
 
 ENV KUBEBUILDER_VERSION=1.0.6
 

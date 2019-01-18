@@ -16,4 +16,7 @@ php: base
 	$(call build_and_push,php/fpm,skpr/php-fpm:7.2-1.x)
 	$(call build_and_push,php/cli,skpr/php-cli:7.2-1.x)
 
-.PHONY: base nginx php
+kubebuilder:
+	$(call build_and_push,kubebuilder,skpr/kubebuilder:v1.0.6)
+
+.PHONY: base nginx php kubebuilder
