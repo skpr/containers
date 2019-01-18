@@ -1,0 +1,19 @@
+#!/usr/bin/make -f
+
+define build_and_push
+	cd ${1} && docker build -t ${2} .
+	docker push ${2}
+endef
+
+base:
+	$(call build_and_push,base,skpr/base:1.x)
+
+nginx: base
+	$(call build_and_push,nginx,skpr/nginx:1.x)
+
+php: base
+	$(call build_and_push,php/base,skpr/php:7.2-1.x)
+	$(call build_and_push,php/fpm,skpr/php-fpm:7.2-1.x)
+	$(call build_and_push,php/cli,skpr/php-cli:7.2-1.x)
+
+.PHONY: base nginx php
