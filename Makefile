@@ -19,4 +19,10 @@ php: base
 kubebuilder:
 	$(call build_and_push,kubebuilder,skpr/kubebuilder:v1.0.6)
 
-.PHONY: base nginx php kubebuilder
+nginx-exporter:
+	$(call build_and_push,nginx-exporter,skpr/nginx-exporter:v0.2.0)
+
+fpm-exporter:
+	$(call build_and_push,fpm-exporter,skpr/fpm-exporter:v1.0.0)
+
+.PHONY: base nginx php kubebuilder nginx-exporter fpm-exporter
