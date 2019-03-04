@@ -1,39 +1,44 @@
 FROM skpr/base:1.x
 
+ARG PHP_VERSION=7.2
+
 ENV PATH "$PATH:/data/bin"
 
 WORKDIR /data
 
+RUN apk add --no-cache curl ca-certificates && \
+    curl -L https://packages.skpr.io/php-alpine/skpr.rsa.pub -o /etc/apk/keys/skpr.rsa.pub && \
+    echo "https://packages.skpr.io/php-alpine/${ALPINE_VERSION}/php${PHP_VERSION}" >> /etc/apk/repositories
+
 RUN apk --update --no-cache add \
-      php7-apcu \
-      php7-bcmath \
-      php7-ctype \
-      php7-curl \
-      php7-dom \
-      php7-ftp \
-      php7-gd \
-      php7-iconv \
-      php7-json \
-      php7-mbstring \
-      php7-mcrypt \
-      php7-memcached \
-      php7-opcache \
-      php7-openssl \
-      php7-pcntl \
-      php7-pdo \
-      php7-pdo_mysql \
-      php7-pdo_sqlite \
-      php7-phar \
-      php7-posix \
-      php7-session \
-      php7-simplexml \
-      php7-soap \
-      php7-sqlite3 \
-      php7-tokenizer \
-      php7-xml \
-      php7-xmlreader \
-      php7-xmlwriter \
-      php7-zip \
+      php${PHP_VERSION}-apcu \
+      php${PHP_VERSION}-bcmath \
+      php${PHP_VERSION}-ctype \
+      php${PHP_VERSION}-curl \
+      php${PHP_VERSION}-dom \
+      php${PHP_VERSION}-ftp \
+      php${PHP_VERSION}-gd \
+      php${PHP_VERSION}-iconv \
+      php${PHP_VERSION}-json \
+      php${PHP_VERSION}-mbstring \
+      php${PHP_VERSION}-memcached \
+      php${PHP_VERSION}-opcache \
+      php${PHP_VERSION}-openssl \
+      php${PHP_VERSION}-pcntl \
+      php${PHP_VERSION}-pdo \
+      php${PHP_VERSION}-pdo_mysql \
+      php${PHP_VERSION}-pdo_sqlite \
+      php${PHP_VERSION}-phar \
+      php${PHP_VERSION}-posix \
+      php${PHP_VERSION}-session \
+      php${PHP_VERSION}-simplexml \
+      php${PHP_VERSION}-soap \
+      php${PHP_VERSION}-sqlite3 \
+      php${PHP_VERSION}-tokenizer \
+      php${PHP_VERSION}-xml \
+      php${PHP_VERSION}-xmlreader \
+      php${PHP_VERSION}-xmlwriter \
+      php${PHP_VERSION}-zip \
       pngquant \
       jpegoptim \
       mysql-client \
