@@ -43,3 +43,8 @@ RUN apk --update --no-cache add \
       jpegoptim \
       mysql-client \
       optipng
+
+# This provides a compatibility layer for developer who are adding
+# custom php.ini files to their projects.
+# Bumping PHP versions should not result in changes to their Dockerfiles.
+RUN ln -sf /etc/php/${PHP_VERSION} /etc/php7
