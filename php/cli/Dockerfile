@@ -5,6 +5,7 @@ ARG PHP_VERSION=7.2
 ENV PS1='\u@\h:\W \$ '
 
 RUN apk --update --no-cache add \
+      make \
       bash \
       curl \
       rsync \
