@@ -41,9 +41,6 @@ RUN apt-get update && \
     gem sources --clear-all && \
     rm -rf /tmp/* /var/tmp/* /usr/lib/ruby/gems/*/cache/*.gem
 
-COPY fluent.conf /fluentd/etc/
-RUN touch /fluentd/etc/disable.conf
-
 COPY entrypoint.sh /fluentd/entrypoint.sh
 RUN chmod +x /fluentd/entrypoint.sh
 
