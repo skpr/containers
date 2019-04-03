@@ -27,4 +27,7 @@ kubebuilder:
 fpm-exporter:
 	docker build -t skpr/fpm-exporter:v1.0.0 fpm-exporter
 
+fluentd-cloudwatchlogs:
+	docker build -t skpr/fluentd-cloudwatchlogs:v0.0.1 fluentd/cloudwatchlogs
+
 .PHONY: base nginx php kubebuilder nginx-exporter fpm-exporter
