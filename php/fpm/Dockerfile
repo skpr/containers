@@ -8,8 +8,6 @@ RUN apk --update --no-cache add \
 COPY 50-setting.ini /etc/php7/conf.d/50-setting.ini
 COPY php-fpm.conf /etc/php7/php-fpm.conf
 
-VOLUME /tmp
-
 EXPOSE 9000
 
 USER skpr

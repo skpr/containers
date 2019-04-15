@@ -20,7 +20,7 @@ RUN chown -R skpr:skpr /var/lib/nginx \
 VOLUME /run/nginx
 VOLUME /var/tmp/nginx
 
-EXPOSE 80
+EXPOSE 8080
 
 STOPSIGNAL SIGTERM
 

@@ -4,6 +4,10 @@ ARG PHP_VERSION=7.2
 
 ENV PATH "$PATH:/data/bin"
 
+# https://github.com/moby/moby/issues/20295
+RUN mkdir /data && \
+    chown -R skpr:skpr /data
+
 WORKDIR /data
 
 RUN apk add --no-cache curl ca-certificates && \
@@ -43,6 +47,9 @@ RUN apk --update --no-cache add \
       jpegoptim \
       mysql-client \
       optipng
+
+# Drush uses /tmp.
+VOLUME /tmp
 
 # This provides a compatibility layer for developer who are adding
 # custom php.ini files to their projects.

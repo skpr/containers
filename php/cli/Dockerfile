@@ -9,14 +9,12 @@ RUN apk --update --no-cache add \
       bash \
       curl \
       rsync \
-      vim
+      vim \
+      git
 
 RUN curl -sS https://getcomposer.org/installer | php && \
     mv composer.phar /usr/local/bin/composer && \
     chmod +x /usr/local/bin/composer
-
-ADD drush.yml /etc/drush/drush.yml
-ADD drushrc.php /etc/drush/drushrc.php
 
 USER skpr
 

@@ -12,4 +12,6 @@ FROM alpine:3.8
 COPY --from=pull /nginx-prometheus-exporter /usr/local/bin/nginx-prometheus-exporter
 RUN chmod +x /usr/local/bin/nginx-prometheus-exporter
 
+ENV SCRAPE_URI=http://127.0.0.1:8081/stub_status
+
 CMD [ "nginx-prometheus-exporter" ]
