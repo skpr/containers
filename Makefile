@@ -16,10 +16,21 @@ define build_php
 	docker build --build-arg PHP_VERSION=${1} -t skpr/php-cli:${1}-1.x php/cli
 endef
 
+define push_php
+	docker push skpr/php:${1}-1.x
+	docker push skpr/php-fpm:${1}-1.x
+	docker push skpr/php-cli:${1}-1.x
+endef
+
 php: base
 	$(call build_php,7.1)
 	$(call build_php,7.2)
 	$(call build_php,7.3)
+
+php-push:
+	$(call push_php,7.1)
+	$(call push_php,7.2)
+	$(call push_php,7.3)
 
 kubebuilder:
 	docker build -t skpr/kubebuilder:v1.0.6 kubebuilder
@@ -30,4 +41,4 @@ fpm-exporter:
 fluentd-cloudwatchlogs:
 	docker build -t skpr/fluentd-cloudwatchlogs:v0.0.1 fluentd/cloudwatchlogs
 
-.PHONY: base nginx php kubebuilder nginx-exporter fpm-exporter
+.PHONY: base nginx php kubebuilder nginx-exporter fpm-exporter php-push
