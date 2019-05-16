@@ -38,7 +38,6 @@ RUN apk --update --no-cache add \
       php${PHP_VERSION}-session \
       php${PHP_VERSION}-simplexml \
       php${PHP_VERSION}-soap \
-      php${PHP_VERSION}-sodium \
       php${PHP_VERSION}-sqlite3 \
       php${PHP_VERSION}-tokenizer \
       php${PHP_VERSION}-xml \
@@ -46,10 +45,13 @@ RUN apk --update --no-cache add \
       php${PHP_VERSION}-xmlwriter \
       php${PHP_VERSION}-zip \
       pngquant \
-      libsodium \
       jpegoptim \
       mysql-client \
       optipng
+
+# Libsodium is only avaiable in PHP versions > 7.1
+# @todo, Remove once 7.1 is EOL.
+RUN if [ "$PHP_VERSION" != "7.1" ]; then apk add php${PHP_VERSION}-sodium libsodium; fi
 
 # Drush uses /tmp.
 VOLUME /tmp
