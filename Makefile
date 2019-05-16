@@ -41,4 +41,4 @@ fpm-exporter:
 fluentd-cloudwatchlogs:
 	docker build -t skpr/fluentd-cloudwatchlogs:v0.0.1 fluentd/cloudwatchlogs
 
-.PHONY: base nginx php kubebuilder nginx-exporter fpm-exporter php-push
+.PHONY: *
