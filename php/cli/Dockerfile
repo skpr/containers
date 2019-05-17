@@ -10,6 +10,7 @@ RUN apk --update --no-cache add \
       curl \
       rsync \
       vim \
+      patch \
       git
 
 RUN curl -sS https://getcomposer.org/installer | php && \
