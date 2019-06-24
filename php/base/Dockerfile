@@ -2,6 +2,10 @@ FROM skpr/base:1.x
 
 ARG PHP_VERSION=7.2
 
+ENV NEW_RELIC_ENABLED=false
+# ENV NEW_RELIC_APP_NAME=My Application
+# ENV NEW_RELIC_LICENSE_KEY=xxxxxxxxxxxxxxxxx
+
 ENV PATH "$PATH:/data/bin"
 
 # https://github.com/moby/moby/issues/20295
