@@ -53,10 +53,21 @@ RUN apk --update --no-cache add \
 # @todo, Remove once 7.1 is EOL.
 RUN if [ "$PHP_VERSION" != "7.1" ]; then apk add php${PHP_VERSION}-sodium libsodium; fi
 
-# Drush uses /tmp.
-VOLUME /tmp
-
 # This provides a compatibility layer for developer who are adding
 # custom php.ini files to their projects.
 # Bumping PHP versions should not result in changes to their Dockerfiles.
 RUN ln -sf /etc/php/${PHP_VERSION} /etc/php7
+
+# New Relic
+RUN export NR_INSTALL_SILENT=true && \
+    export NR_INSTALL_USE_CP_NOT_LN=true && \
+    export NR_VERSION=8.7.0.242 && \
+    export NR_FILENAME=newrelic-php5-${NR_VERSION}-linux-musl && \
+    curl -sSL https://download.newrelic.com/php_agent/archive/${NR_VERSION}/${NR_FILENAME}.tar.gz | gzip -dc | tar xf - && \
+    cd ${NR_FILENAME} && ./newrelic-install install && \
+    rm -fR /${NR_FILENAME}
+
+ADD newrelic.ini /etc/php7/conf.d/newrelic.ini
+
+# Drush uses /tmp.
+VOLUME /tmp
