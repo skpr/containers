@@ -62,6 +62,11 @@ RUN if [ "$PHP_VERSION" != "7.1" ]; then apk add php${PHP_VERSION}-sodium libsod
 # Bumping PHP versions should not result in changes to their Dockerfiles.
 RUN ln -sf /etc/php/${PHP_VERSION} /etc/php7
 
+# Drush uses /tmp.
+VOLUME /tmp
+
+WORKDIR /tmp
+
 # New Relic
 RUN export NR_INSTALL_SILENT=true && \
     export NR_INSTALL_USE_CP_NOT_LN=true && \
@@ -73,5 +78,4 @@ RUN export NR_INSTALL_SILENT=true && \
 
 ADD newrelic.ini /etc/php7/conf.d/newrelic.ini
 
-# Drush uses /tmp.
-VOLUME /tmp
+WORKDIR /data
