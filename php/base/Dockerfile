@@ -69,7 +69,7 @@ RUN export NR_INSTALL_SILENT=true && \
     export NR_FILENAME=newrelic-php5-${NR_VERSION}-linux-musl && \
     curl -sSL https://download.newrelic.com/php_agent/archive/${NR_VERSION}/${NR_FILENAME}.tar.gz | gzip -dc | tar xf - && \
     cd ${NR_FILENAME} && ./newrelic-install install && \
-    rm -fR /${NR_FILENAME}
+    rm -fR /data/${NR_FILENAME}
 
 ADD newrelic.ini /etc/php7/conf.d/newrelic.ini
 
