@@ -6,6 +6,8 @@ ENV NEW_RELIC_ENABLED=false
 # ENV NEW_RELIC_APP_NAME=My Application
 # ENV NEW_RELIC_LICENSE_KEY=xxxxxxxxxxxxxxxxx
 
+ENV PHP_MEMORY_LIMIT=128M
+
 ENV PATH "$PATH:/data/bin"
 
 # https://github.com/moby/moby/issues/20295
@@ -39,6 +41,7 @@ RUN apk --update --no-cache add \
       php${PHP_VERSION}-pdo_sqlite \
       php${PHP_VERSION}-phar \
       php${PHP_VERSION}-posix \
+      php${PHP_VERSION}-redis \
       php${PHP_VERSION}-session \
       php${PHP_VERSION}-simplexml \
       php${PHP_VERSION}-soap \
@@ -71,7 +74,9 @@ RUN export NR_INSTALL_SILENT=true && \
     cd ${NR_FILENAME} && ./newrelic-install install && \
     rm -fR /data/${NR_FILENAME}
 
+ADD apcu.ini /etc/php7/conf.d/apcu.ini
 ADD newrelic.ini /etc/php7/conf.d/newrelic.ini
+ADD overrides.ini /etc/php7/conf.d/overrides.ini
 
 # Drush uses /tmp.
 VOLUME /tmp
