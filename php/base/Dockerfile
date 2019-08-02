@@ -32,7 +32,6 @@ RUN apk --update --no-cache add \
       php${PHP_VERSION}-iconv \
       php${PHP_VERSION}-json \
       php${PHP_VERSION}-mbstring \
-      php${PHP_VERSION}-memcached \
       php${PHP_VERSION}-opcache \
       php${PHP_VERSION}-openssl \
       php${PHP_VERSION}-pcntl \
@@ -41,12 +40,12 @@ RUN apk --update --no-cache add \
       php${PHP_VERSION}-pdo_sqlite \
       php${PHP_VERSION}-phar \
       php${PHP_VERSION}-posix \
-      php${PHP_VERSION}-redis \
       php${PHP_VERSION}-session \
       php${PHP_VERSION}-simplexml \
       php${PHP_VERSION}-soap \
       php${PHP_VERSION}-sqlite3 \
       php${PHP_VERSION}-tokenizer \
+      php${PHP_VERSION}-xdebug \
       php${PHP_VERSION}-xml \
       php${PHP_VERSION}-xmlreader \
       php${PHP_VERSION}-xmlwriter \
@@ -64,6 +63,9 @@ RUN if [ "$PHP_VERSION" != "7.1" ]; then apk add php${PHP_VERSION}-sodium libsod
 # custom php.ini files to their projects.
 # Bumping PHP versions should not result in changes to their Dockerfiles.
 RUN ln -sf /etc/php/${PHP_VERSION} /etc/php7
+
+# We don't want xdebug on by default.
+RUN rm -f /etc/php7/conf.d/xdebug.ini
 
 # New Relic
 RUN export NR_INSTALL_SILENT=true && \
