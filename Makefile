@@ -14,8 +14,8 @@ define build_php
 	docker build --build-arg PHP_VERSION=${1} -t skpr/php:${1}-1.x php/base
 	docker build --build-arg PHP_VERSION=${1} -t skpr/php-fpm:${1}-1.x php/fpm
 	docker build --build-arg PHP_VERSION=${1} -t skpr/php-cli:${1}-1.x php/cli
-	docker build --build-arg IMAGE=skpr/php-fpm:${1}-1.x -t skpr/php-fpm:${1}-1.x-dev php/dev
-	docker build --build-arg IMAGE=skpr/php-cli:${1}-1.x -t skpr/php-cli:${1}-1.x-dev php/dev
+	docker build --build-arg PHP_VERSION=${1} --build-arg IMAGE=skpr/php-fpm:${1}-1.x -t skpr/php-fpm:${1}-1.x-dev php/dev
+	docker build --build-arg PHP_VERSION=${1} --build-arg IMAGE=skpr/php-cli:${1}-1.x -t skpr/php-cli:${1}-1.x-dev php/dev
 endef
 
 define push_php
