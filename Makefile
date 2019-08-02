@@ -6,6 +6,7 @@ base:
 
 nginx: base
 	docker build -t skpr/nginx:1.x nginx
+	docker build -t skpr/nginx:1.x-dev nginx/dev
 
 nginx-exporter:
 	docker build -t skpr/nginx-exporter:0.0.1 nginx-exporter
