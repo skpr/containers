@@ -44,4 +44,10 @@ fpm-exporter:
 fluentd-cloudwatchlogs:
 	docker build -t skpr/fluentd-cloudwatchlogs:v0.0.1 fluentd/cloudwatchlogs
 
+solr:
+	docker build -t skpr/solr:init solr/init
+	docker build --build-arg SOLR_VERSION=7.7-slim \
+	             --build-arg SEARCH_API_SOLR_VERSION=3.x \
+	             -t skpr/solr:7.x-3.x solr/7.x
+
 .PHONY: *
