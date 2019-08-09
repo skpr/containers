@@ -12,17 +12,33 @@ nginx-exporter:
 	docker build -t skpr/nginx-exporter:0.0.1 nginx-exporter
 
 define build_php
+	# Building production images.
 	docker build --build-arg PHP_VERSION=${1} -t skpr/php:${1}-1.x php/base
 	docker build --build-arg PHP_VERSION=${1} -t skpr/php-fpm:${1}-1.x php/fpm
 	docker build --build-arg PHP_VERSION=${1} -t skpr/php-cli:${1}-1.x php/cli
+
+	# Building dev images.
 	docker build --build-arg PHP_VERSION=${1} --build-arg IMAGE=skpr/php-fpm:${1}-1.x -t skpr/php-fpm:${1}-1.x-dev php/dev
 	docker build --build-arg PHP_VERSION=${1} --build-arg IMAGE=skpr/php-cli:${1}-1.x -t skpr/php-cli:${1}-1.x-dev php/dev
+
+	# Building Xdebug images.
+	docker build --build-arg PHP_VERSION=${1} --build-arg IMAGE=skpr/php-fpm:${1}-1.x-dev -t skpr/php-fpm:${1}-1.x-xdebug php/dev
+	docker build --build-arg PHP_VERSION=${1} --build-arg IMAGE=skpr/php-cli:${1}-1.x-dev -t skpr/php-cli:${1}-1.x-xdebug php/dev
 endef
 
 define push_php
+	# Pushing production images.
 	docker push skpr/php:${1}-1.x
 	docker push skpr/php-fpm:${1}-1.x
 	docker push skpr/php-cli:${1}-1.x
+
+	# Pushing dev images.
+	docker push skpr/php-fpm:${1}-1.x-dev
+	docker push skpr/php-cli:${1}-1.x-dev
+
+	# Pushing Xdebug images.
+	docker push skpr/php-fpm:${1}-1.x-xdebug
+	docker push skpr/php-cli:${1}-1.x-xdebug
 endef
 
 php: base
