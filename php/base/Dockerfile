@@ -72,6 +72,9 @@ RUN export NR_INSTALL_SILENT=true && \
     cd ${NR_FILENAME} && ./newrelic-install install && \
     rm -fR /data/${NR_FILENAME}
 
+RUN curl -sSL https://s3.amazonaws.com/rds-downloads/rds-combined-ca-bundle.pem -o /etc/ssl/certs/rds-combined-ca-bundle.pem && \
+    chmod 755 /etc/ssl/certs/rds-combined-ca-bundle.pem
+
 ADD apcu.ini /etc/php7/conf.d/apcu.ini
 ADD newrelic.ini /etc/php7/conf.d/newrelic.ini
 ADD overrides.ini /etc/php7/conf.d/overrides.ini
