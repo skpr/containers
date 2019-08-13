@@ -52,7 +52,10 @@ RUN apk --update --no-cache add \
       pngquant \
       jpegoptim \
       mysql-client \
-      optipng
+      optipng \
+      tesseract-ocr \
+      tesseract-ocr-dev \
+      poppler-utils
 
 # Libsodium is only avaiable in PHP versions > 7.1
 # @todo, Remove once 7.1 is EOL.
@@ -74,6 +77,9 @@ RUN export NR_INSTALL_SILENT=true && \
 
 RUN curl -sSL https://github.com/skpr/mail/releases/download/v0.0.2/skprmail_linux_amd64 -o /usr/local/bin/skprmail && \
     chmod +rx /usr/local/bin/skprmail
+
+RUN curl -sSL https://s3.amazonaws.com/pnx-bins/docconv-v1.0.0-129-geedabc4-alpine${ALPINE_VERSION} -o /usr/local/bin/docconv && \
+    chmod +rx /usr/local/bin/docconv
 
 ADD apcu.ini /etc/php7/conf.d/apcu.ini
 ADD newrelic.ini /etc/php7/conf.d/newrelic.ini
