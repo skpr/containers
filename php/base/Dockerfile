@@ -72,9 +72,6 @@ RUN export NR_INSTALL_SILENT=true && \
     cd ${NR_FILENAME} && ./newrelic-install install && \
     rm -fR /data/${NR_FILENAME}
 
-RUN curl -sSL https://s3.amazonaws.com/rds-downloads/rds-combined-ca-bundle.pem -o /etc/ssl/certs/rds-combined-ca-bundle.pem && \
-    chmod 755 /etc/ssl/certs/rds-combined-ca-bundle.pem
-
 RUN curl -sSL https://github.com/skpr/mail/releases/download/v0.0.2/skprmail_linux_amd64 -o /usr/local/bin/skprmail && \
     chmod +rx /usr/local/bin/skprmail
 
