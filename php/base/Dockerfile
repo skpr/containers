@@ -75,7 +75,7 @@ RUN export NR_INSTALL_SILENT=true && \
     cd ${NR_FILENAME} && ./newrelic-install install && \
     rm -fR /data/${NR_FILENAME}
 
-RUN curl -sSL https://github.com/skpr/mail/releases/download/v0.0.2/skprmail_linux_amd64 -o /usr/local/bin/skprmail && \
+RUN curl -sSL https://github.com/skpr/mail/releases/download/v0.0.5/skprmail_linux_amd64 -o /usr/local/bin/skprmail && \
     chmod +rx /usr/local/bin/skprmail
 
 RUN curl -sSL https://s3.amazonaws.com/pnx-bins/docconv-v1.0.0-129-geedabc4-alpine${ALPINE_VERSION} -o /usr/local/bin/docconv && \

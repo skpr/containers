@@ -5,6 +5,7 @@ RUN apk --update --no-cache add nginx
 ADD nginx.conf /etc/nginx/nginx.conf
 ADD default.conf /etc/nginx/conf.d/default.conf
 ADD status.conf /etc/nginx/conf.d/status.conf
+RUN touch /etc/nginx/conf.d/custom.conf
 
 # We need to create and chown these directory for
 # readonly and non-root execution.
