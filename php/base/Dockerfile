@@ -8,6 +8,8 @@ ENV NEW_RELIC_ENABLED=false
 
 ENV PHP_MEMORY_LIMIT=128M
 
+ENV SYSLOG_SYMLINK=/mnt/syslog/log
+
 ENV PATH "$PATH:/data/bin"
 
 # https://github.com/moby/moby/issues/20295
