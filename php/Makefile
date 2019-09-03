@@ -2,7 +2,7 @@
 
 REGISTRY=docker.pkg.github.com/skpr/containers/php
 
-define build_php
+define build_image
 	# Building production images.
 	docker build --build-arg PHP_VERSION=${1} -t $(REGISTRY):${1}-1.x base
 	docker build --build-arg PHP_VERSION=${1} -t $(REGISTRY)-fpm:${1}-1.x fpm
@@ -17,7 +17,7 @@ define build_php
 	docker build --build-arg PHP_VERSION=${1} --build-arg IMAGE=$(REGISTRY)-cli:${1}-1.x-dev -t $(REGISTRY)-cli:${1}-1.x-xdebug xdebug
 endef
 
-define build_php
+define push_image
 	# Pushing production images.
 	docker push $(REGISTRY)/php:${1}-1.x
 	docker push $(REGISTRY)/php-fpm:${1}-1.x
@@ -33,13 +33,13 @@ define build_php
 endef
 
 build:
-	$(call build_push_php,7.1)
-	$(call build_push_php,7.2)
-	$(call build_push_php,7.3)
+	$(call build_image,7.1)
+	$(call build_image,7.2)
+	$(call build_image,7.3)
 
 push:
-	$(call build_push_php,7.1)
-	$(call build_push_php,7.2)
-	$(call build_push_php,7.3)
+	$(call push_image,7.1)
+	$(call push_image,7.2)
+	$(call push_image,7.3)
 
 .PHONY: *
