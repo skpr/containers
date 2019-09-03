@@ -6,7 +6,6 @@ on:
       - master
 
 jobs:
-
   build:
     name: Build image ${{ matrix.image }}
     runs-on: ubuntu-latest
@@ -22,6 +21,6 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Build the Docker image
-        run: make ${{ matrix.image }}
+        run: cd ${{ matrix.image }} && make build
       - name: Push the Docker image
-        run: make ${{ matrix.image }}-push
+        run: cd ${{ matrix.image }} && make push
