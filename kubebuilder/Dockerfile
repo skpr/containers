@@ -1,8 +1,10 @@
-FROM golang:1.11
+FROM golang:1.12
 
 RUN go get github.com/golang/dep/cmd/dep && \
-    go get sigs.k8s.io/kustomize/v3/cmd/kustomize && \
     go get golang.org/x/lint/golint
+
+RUN curl -sSL https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64 -o /usr/local/bin/kustomize && \
+    chmod +rx /usr/local/bin/kustomize
 
 ENV KUBEBUILDER_VERSION=1.0.6
 
