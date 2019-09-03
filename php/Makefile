@@ -19,17 +19,17 @@ endef
 
 define push_image
 	# Pushing production images.
-	docker push $(REGISTRY)/php:${1}-1.x
-	docker push $(REGISTRY)/php-fpm:${1}-1.x
-	docker push $(REGISTRY)/php-cli:${1}-1.x
+	docker push $(REGISTRY):${1}-1.x
+	docker push $(REGISTRY)-fpm:${1}-1.x
+	docker push $(REGISTRY)-cli:${1}-1.x
 
 	# Pushing dev images.
-	docker push $(REGISTRY)/php-fpm:${1}-1.x-dev
-	docker push $(REGISTRY)/php-cli:${1}-1.x-dev
+	docker push $(REGISTRY)-fpm:${1}-1.x-dev
+	docker push $(REGISTRY)-cli:${1}-1.x-dev
 
 	# Pushing Xdebug images.
-	docker push $(REGISTRY)/php-fpm:${1}-1.x-xdebug
-	docker push $(REGISTRY)/php-cli:${1}-1.x-xdebug
+	docker push $(REGISTRY)-fpm:${1}-1.x-xdebug
+	docker push $(REGISTRY)-cli:${1}-1.x-xdebug
 endef
 
 build:
