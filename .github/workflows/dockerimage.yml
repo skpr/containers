@@ -1,0 +1,27 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+
+  build:
+    name: Build image ${{ matrix.image }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        image:
+          - base
+          - nginx
+          - php
+          - solr
+          - kubebuilder
+  
+    steps:
+      - uses: actions/checkout@v1
+      - name: Build the Docker image
+        run: make ${{ matrix.image }}
+      - name: Push the Docker image
+        run: make ${{ matrix.image }}-push
