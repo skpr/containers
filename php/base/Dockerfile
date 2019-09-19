@@ -42,6 +42,7 @@ RUN apk --update --no-cache add \
       php${PHP_VERSION}-pdo_sqlite \
       php${PHP_VERSION}-phar \
       php${PHP_VERSION}-posix \
+      php${PHP_VERSION}-redis \
       php${PHP_VERSION}-session \
       php${PHP_VERSION}-simplexml \
       php${PHP_VERSION}-soap \
