@@ -13,11 +13,12 @@ jobs:
       matrix:
         image:
           - base
+          - node
           - nginx
           - php
           - solr
           - kubebuilder
-  
+
     steps:
       - uses: actions/checkout@v1
       - name: Login to GitHub Docker Registry
