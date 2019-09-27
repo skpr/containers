@@ -1,6 +1,6 @@
 #!/usr/bin/make -f
 
-REGISTRY=docker.pkg.github.com/skpr/containers/php
+REGISTRY=skpr/php
 
 define build_image
 	# Building production images.

@@ -1,6 +1,6 @@
 #!/usr/bin/make -f
 
-REGISTRY=docker.pkg.github.com/skpr/containers/base
+REGISTRY=skpr/base
 
 build:
 	docker build -t $(REGISTRY):1.x .

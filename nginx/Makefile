@@ -1,6 +1,6 @@
 #!/usr/bin/make -f
 
-REGISTRY=docker.pkg.github.com/skpr/containers/nginx
+REGISTRY=skpr/nginx
 
 build:
 	docker build -t $(REGISTRY):1.x .
