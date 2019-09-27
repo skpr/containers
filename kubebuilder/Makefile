@@ -1,6 +1,6 @@
 #!/usr/bin/make -f
 
-REGISTRY=docker.pkg.github.com/skpr/containers/kubebuilder
+REGISTRY=skpr/kubebuilder
 
 build:
 	docker build -t $(REGISTRY):v1.0.6 .

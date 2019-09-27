@@ -1,6 +1,6 @@
 #!/usr/bin/make -f
 
-REGISTRY=docker.pkg.github.com/skpr/containers/solr
+REGISTRY=skpr/solr
 
 build:
 	docker build -t $(REGISTRY):init init
