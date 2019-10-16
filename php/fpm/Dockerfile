@@ -14,7 +14,8 @@ USER skpr
 
 # Configuration which can be overriden.
 # See /etc/php7/php-fpm.conf
-ENV PHP_FPM_MAX_CHILDREN=20 \
+ENV PHP_FPM_PORT=9000 \
+    PHP_FPM_MAX_CHILDREN=20 \
     PHP_FPM_START_SERVERS=2 \
     PHP_FPM_MIN_SPARE_SERVERS=2 \
     PHP_FPM_MAX_SPARE_SERVERS=10 \
