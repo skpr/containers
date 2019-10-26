@@ -6,5 +6,5 @@ Container suite for the Skipper platform.
 ## Build
 
 ```bash
-make
+cd <container> && make build push
 ```
