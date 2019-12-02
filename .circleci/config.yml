@@ -52,7 +52,7 @@ workflows:
       - php
       - solr
       - kubebuilder
-  weekly:
+  nightly:
     jobs:
       - base
       - node
@@ -62,8 +62,8 @@ workflows:
       - kubebuilder
     triggers:
       - schedule:
-          # Scheduled build for 9pm AEST on Sunday.
-          cron: "0 23 * * 6"
+          # Scheduled build for 2am AEST nightly.
+          cron: "0 15 * * *"
           filters:
             branches:
               only:
