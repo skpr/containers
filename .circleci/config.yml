@@ -1,0 +1,70 @@
+version: 2
+
+build: &build
+  docker:
+    - image: previousnext/container-builder:latest
+  steps:
+    - setup_remote_docker
+    - checkout
+    - run:
+        name: Build, Test and Release
+        command: |
+          cd $DIR
+          make build
+          if [ "$CIRCLE_BRANCH" == "master" ]; then
+            docker login -u $DOCKER_USER -p $DOCKER_PASS
+            make push
+          fi
+
+jobs:
+  base:
+    <<: *build
+    environment:
+      - DIR: base
+  node:
+    <<: *build
+    environment:
+      - DIR: node
+  nginx:
+    <<: *build
+    environment:
+      - DIR: nginx
+  php:
+    <<: *build
+    environment:
+      - DIR: php
+  solr:
+    <<: *build
+    environment:
+      - DIR: solr
+  kubebuilder:
+    <<: *build
+    environment:
+      - DIR: kubebuilder
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - base
+      - node
+      - nginx
+      - php
+      - solr
+      - kubebuilder
+  weekly:
+    jobs:
+      - base
+      - node
+      - nginx
+      - php
+      - solr
+      - kubebuilder
+    triggers:
+      - schedule:
+          # Scheduled build for 9pm AEST on Sunday.
+          cron: "0 23 * * 6"
+          filters:
+            branches:
+              only:
+                - master
