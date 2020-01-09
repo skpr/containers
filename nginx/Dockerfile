@@ -22,6 +22,7 @@ RUN chown -R skpr:skpr /var/lib/nginx \
 # directive from above.
 VOLUME /run/nginx
 VOLUME /var/tmp/nginx
+VOLUME /var/lib/nginx/logs
 
 EXPOSE 8080
 
