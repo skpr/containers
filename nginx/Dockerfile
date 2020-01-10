@@ -15,6 +15,7 @@ RUN mkdir -p /run/nginx
 RUN chown -R skpr:skpr /var/lib/nginx \
                        /var/log/nginx \
                        /var/tmp/nginx \
+                       /var/lib/nginx/logs \
                        /usr/lib/nginx/modules \
                        /run/nginx
 
