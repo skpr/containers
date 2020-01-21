@@ -15,6 +15,9 @@ define build_image
 	# Building Xdebug images.
 	docker build --build-arg PHP_VERSION=${1} --build-arg IMAGE=$(REGISTRY)-fpm:${1}-1.x-dev -t $(REGISTRY)-fpm:${1}-1.x-xdebug xdebug
 	docker build --build-arg PHP_VERSION=${1} --build-arg IMAGE=$(REGISTRY)-cli:${1}-1.x-dev -t $(REGISTRY)-cli:${1}-1.x-xdebug xdebug
+
+	# Building CircleCI images.
+	docker build --build-arg PHP_VERSION=${1} --build-arg IMAGE=$(REGISTRY)-cli:${1}-1.x-dev -t $(REGISTRY)-circleci:${1}-1.x circleci
 endef
 
 define push_image
