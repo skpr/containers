@@ -33,6 +33,9 @@ define push_image
 	# Pushing Xdebug images.
 	docker push $(REGISTRY)-fpm:${1}-1.x-xdebug
 	docker push $(REGISTRY)-cli:${1}-1.x-xdebug
+
+	# Pushing CircleCI images.
+	docker push $(REGISTRY)-circleci:${1}-1.x
 endef
 
 build:
