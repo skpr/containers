@@ -46,5 +46,6 @@ build:
 push:
 	$(call push_image,7.2)
 	$(call push_image,7.3)
+	$(call push_image,7.4)
 
 .PHONY: *
