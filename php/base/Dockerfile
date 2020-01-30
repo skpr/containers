@@ -23,6 +23,7 @@ RUN apk add --no-cache curl ca-certificates && \
     echo "https://packages.skpr.io/php-alpine/${ALPINE_VERSION}/php${PHP_VERSION}" >> /etc/apk/repositories
 
 RUN apk --update --no-cache add \
+      php${PHP_VERSION} \
       php${PHP_VERSION}-apcu \
       php${PHP_VERSION}-bcmath \
       php${PHP_VERSION}-ctype \
@@ -61,23 +62,23 @@ RUN apk --update --no-cache add \
       tesseract-ocr-dev \
       poppler-utils
 
-# Libsodium is only avaiable in PHP versions > 7.1
-# @todo, Remove once 7.1 is EOL.
-RUN if [ "$PHP_VERSION" != "7.1" ]; then apk add php${PHP_VERSION}-sodium libsodium; fi
 
-# This provides a compatibility layer for developer who are adding
-# custom php.ini files to their projects.
-# Bumping PHP versions should not result in changes to their Dockerfiles.
-RUN ln -sf /etc/php/${PHP_VERSION} /etc/php7
+RUN if [ "$PHP_VERSION" != "7.4" ]; then \
+    mv /etc/php/${PHP_VERSION}/* /etc/php/ && \
+    rm -fR /etc/php/${PHP_VERSION} && \
+    ln -sf /etc/php /etc/php/${PHP_VERSION} && \
+    ln -sf /etc/php /etc/php7; \
+fi
 
 # New Relic
 RUN export NR_INSTALL_SILENT=true && \
     export NR_INSTALL_USE_CP_NOT_LN=true && \
-    export NR_VERSION=8.7.0.242 && \
+    export NR_VERSION=9.6.1.256 && \
     export NR_FILENAME=newrelic-php5-${NR_VERSION}-linux-musl && \
     curl -sSL https://download.newrelic.com/php_agent/archive/${NR_VERSION}/${NR_FILENAME}.tar.gz | gzip -dc | tar xf - && \
     cd ${NR_FILENAME} && ./newrelic-install install && \
-    rm -fR /data/${NR_FILENAME}
+    rm -fR /data/${NR_FILENAME} && \
+    rm -f /etc/php/conf.d/newrelic.ini
 
 RUN curl -sSL https://github.com/skpr/mail/releases/download/v0.0.5/skprmail_linux_amd64 -o /usr/local/bin/skprmail && \
     chmod +rx /usr/local/bin/skprmail
@@ -85,9 +86,9 @@ RUN curl -sSL https://github.com/skpr/mail/releases/download/v0.0.5/skprmail_lin
 RUN curl -sSL https://s3.amazonaws.com/pnx-bins/docconv-v1.0.0-129-geedabc4-alpine${ALPINE_VERSION} -o /usr/local/bin/docconv && \
     chmod +rx /usr/local/bin/docconv
 
-ADD apcu.ini /etc/php7/conf.d/apcu.ini
-ADD newrelic.ini /etc/php7/conf.d/newrelic.ini
-ADD overrides.ini /etc/php7/conf.d/overrides.ini
+ADD conf.d/01_apcu.ini /etc/php/conf.d/01_apcu.ini
+ADD conf.d/01_newrelic.ini /etc/php/conf.d/01_newrelic.ini
+ADD conf.d/50_overrides.ini /etc/php/conf.d/50_overrides.ini
 
 # Drush uses /tmp.
 VOLUME /tmp

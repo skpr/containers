@@ -7,4 +7,4 @@ USER root
 RUN apk add php${PHP_VERSION}-xdebug
 USER skpr
 
-COPY xdebug.ini /etc/php7/conf.d/xdebug.ini
+COPY conf.d/01_xdebug.ini /etc/php/conf.d/01_xdebug.ini

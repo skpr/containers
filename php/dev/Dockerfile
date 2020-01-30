@@ -11,7 +11,7 @@ RUN PHP_VERISON=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") && \
     mv /tmp/blackfire/blackfire-*.so $(php -r "echo ini_get('extension_dir');")/blackfire.so && \
     rm -rf /tmp/blackfire /tmp/blackfire-probe.tar.gz
 
-COPY blackfire.ini /etc/php7/conf.d/blackfire.ini
-COPY dev.ini /etc/php7/conf.d/dev.ini
+COPY conf.d/01_blackfire.ini /etc/php/conf.d/01_blackfire.ini
+COPY conf.d/50_dev.ini /etc/php/conf.d/50_dev.ini
 
 USER skpr
