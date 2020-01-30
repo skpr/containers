@@ -29,6 +29,9 @@ ADD nginx/security.conf /etc/nginx/conf.d/security.conf
 RUN touch /etc/nginx/conf.d/custom.conf
 RUN touch /etc/nginx/redirects.conf
 
+# Configuration duplicated from the Node Dockerfile.
+RUN apk --update --no-cache add nodejs npm yarn bash make
+
 # We need to create and chown these directory for
 # readonly and non-root execution.
 RUN mkdir -p /run/nginx
