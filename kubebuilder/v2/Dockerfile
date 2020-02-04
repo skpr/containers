@@ -2,7 +2,9 @@ FROM golang:1.13
 
 ENV GO111MODULE=on
 
-RUN go get golang.org/x/lint/golint
+RUN go get golang.org/x/lint/golint && \
+    go get k8s.io/code-generator/cmd/client-gen@v0.17.2 && \
+    go get sigs.k8s.io/controller-tools/cmd/controller-gen@v0.2.4
 
 RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl && \
     mv kubectl /usr/local/bin/kubectl && \
