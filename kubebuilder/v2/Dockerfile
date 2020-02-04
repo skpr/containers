@@ -3,6 +3,7 @@ FROM golang:1.13
 ENV GO111MODULE=on
 
 RUN go get golang.org/x/lint/golint && \
+    go get github.com/mitchellh/gox && \
     go get k8s.io/code-generator/cmd/client-gen@v0.17.2 && \
     go get sigs.k8s.io/controller-tools/cmd/controller-gen@v0.2.4
 
