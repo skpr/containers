@@ -48,6 +48,7 @@ RUN apk --update --no-cache add \
       php${PHP_VERSION}-simplexml \
       php${PHP_VERSION}-soap \
       php${PHP_VERSION}-sockets \
+      php${PHP_VERSION}-sodium \
       php${PHP_VERSION}-sqlite3 \
       php${PHP_VERSION}-tokenizer \
       php${PHP_VERSION}-xml \
@@ -60,7 +61,8 @@ RUN apk --update --no-cache add \
       optipng \
       tesseract-ocr \
       tesseract-ocr-dev \
-      poppler-utils
+      poppler-utils \
+      libsodium
 
 
 RUN if [ "$PHP_VERSION" != "7.4" ]; then \
