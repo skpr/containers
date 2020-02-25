@@ -37,6 +37,10 @@ jobs:
     <<: *build
     environment:
       - DIR: solr
+  clamav:
+    <<: *build
+    environment:
+      - DIR: clamav
   kubebuilder:
     <<: *build
     environment:
@@ -51,6 +55,7 @@ workflows:
       - nginx
       - php
       - solr
+      - clamav
       - kubebuilder
   nightly:
     jobs:
@@ -59,6 +64,7 @@ workflows:
       - nginx
       - php
       - solr
+      - clamav
       - kubebuilder
     triggers:
       - schedule:
