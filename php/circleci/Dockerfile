@@ -4,7 +4,9 @@ ARG PHP_VERSION=7.2
 
 USER root
 
-RUN apk --update --no-cache add php${PHP_VERSION}-fpm
+RUN apk --update --no-cache add \
+  php${PHP_VERSION}-fpm \
+  openssh-client
 
 COPY fpm/conf.d/50_fpm.ini /etc/php/conf.d/50_fpm.ini
 COPY fpm/php-fpm.conf /etc/php/php-fpm.conf
