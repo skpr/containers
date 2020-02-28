@@ -8,7 +8,8 @@ RUN apk --update --no-cache add \
   make \
   git \
   openssh-client \
-  python3
+  python3 \
+  g++
 
 RUN mkdir /data && chown skpr:skpr /data
 
