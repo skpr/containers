@@ -13,7 +13,8 @@ RUN apk --update --no-cache add \
       rsync \
       vim \
       patch \
-      git
+      git \
+      jq
 
 RUN curl -sS https://getcomposer.org/installer | php && \
     mv composer.phar /usr/local/bin/composer && \
