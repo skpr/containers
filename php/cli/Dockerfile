@@ -12,6 +12,7 @@ RUN apk --update --no-cache add \
       curl \
       rsync \
       vim \
+      openssh-client \
       patch \
       git \
       jq
