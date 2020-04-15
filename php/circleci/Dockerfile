@@ -6,7 +6,8 @@ USER root
 
 RUN apk --update --no-cache add \
   php${PHP_VERSION}-fpm \
-  openssh-client
+  openssh-client \
+  hub
 
 COPY fpm/conf.d/50_fpm.ini /etc/php/conf.d/50_fpm.ini
 COPY fpm/php-fpm.conf /etc/php/php-fpm.conf
