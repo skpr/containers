@@ -34,6 +34,10 @@ RUN touch /etc/nginx/redirects.conf
 # Configuration duplicated from the Node Dockerfile.
 RUN apk --update --no-cache add nodejs npm yarn bash make
 
+# Install Github Hub
+RUN curl -sSL http://bins.skpr.io/hub-latest -o /usr/local/bin/hub && \
+  chmod +rx /usr/local/bin/hub
+
 # We need to create and chown these directory for
 # readonly and non-root execution.
 RUN mkdir -p /run/nginx
