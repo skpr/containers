@@ -2,12 +2,12 @@ version: 2.1
 
 dirs: &dirs
   - base
-  - node
-  - nginx
-  - php
-  - solr
   - clamav
   - kubebuilder
+  - nginx
+  - node
+  - php
+  - solr
 
 jobs:
   build:
