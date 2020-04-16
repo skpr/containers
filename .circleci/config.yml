@@ -1,71 +1,49 @@
-version: 2
+version: 2.1
 
-build: &build
-  docker:
-    - image: previousnext/container-builder:latest
-  steps:
-    - setup_remote_docker
-    - checkout
-    - run:
-        name: Build, Test and Release
-        command: |
-          cd $DIR
-          make build
-          if [ "$CIRCLE_BRANCH" == "master" ]; then
-            docker login -u $DOCKER_USER -p $DOCKER_PASS
-            make push
-          fi
+dirs: &dirs
+  - base
+  - clamav
+  - kubebuilder
+  - nginx
+  - node
+  - php
+  - solr
 
 jobs:
-  base:
-    <<: *build
-    environment:
-      - DIR: base
-  node:
-    <<: *build
-    environment:
-      - DIR: node
-  nginx:
-    <<: *build
-    environment:
-      - DIR: nginx
-  php:
-    <<: *build
-    environment:
-      - DIR: php
-  solr:
-    <<: *build
-    environment:
-      - DIR: solr
-  clamav:
-    <<: *build
-    environment:
-      - DIR: clamav
-  kubebuilder:
-    <<: *build
-    environment:
-      - DIR: kubebuilder
+  build:
+    docker:
+      - image: previousnext/container-builder:latest
+    parameters:
+      dir:
+        type: string
+        default: ""
+    steps:
+      - setup_remote_docker
+      - checkout
+      - run:
+          name: Build, Test and Release
+          command: |
+            cd << parameters.dir >>
+            make build
+            if [ "$CIRCLE_BRANCH" == "master" ]; then
+              docker login -u $DOCKER_USER -p $DOCKER_PASS
+              make push
+            fi
 
 workflows:
-  version: 2
   build:
     jobs:
-      - base
-      - node
-      - nginx
-      - php
-      - solr
-      - clamav
-      - kubebuilder
+      - build:
+          matrix:
+            parameters:
+              dir: *dirs
+
   nightly:
     jobs:
-      - base
-      - node
-      - nginx
-      - php
-      - solr
-      - clamav
-      - kubebuilder
+      - build:
+          matrix:
+            parameters:
+              dir: *dirs
     triggers:
       - schedule:
           # Scheduled build for 2am AEST nightly.
