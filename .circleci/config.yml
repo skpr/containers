@@ -1,5 +1,14 @@
 version: 2.1
 
+dirs: &dirs
+  - base
+  - node
+  - nginx
+  - php
+  - solr
+  - clamav
+  - kubebuilder
+
 jobs:
   build:
     docker:
@@ -22,34 +31,19 @@ jobs:
             fi
 
 workflows:
-  version: 2.1
   build:
     jobs:
       - build:
           matrix:
             parameters:
-              dir:
-                - base
-                - node
-                - nginx
-                - php
-                - solr
-                - clamav
-                - kubebuilder
+              dir: *dirs
 
   nightly:
     jobs:
       - build:
           matrix:
             parameters:
-              dir:
-                - base
-                - node
-                - nginx
-                - php
-                - solr
-                - clamav
-                - kubebuilder
+              dir: *dirs
     triggers:
       - schedule:
           # Scheduled build for 2am AEST nightly.
