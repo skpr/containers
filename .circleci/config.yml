@@ -4,15 +4,17 @@ jobs:
   build:
     docker:
       - image: previousnext/container-builder:latest
-    environment:
-      DIR: << matrix.dir >>
+    parameters:
+      dir:
+        type: string
+        default: ""
     steps:
       - setup_remote_docker
       - checkout
       - run:
           name: Build, Test and Release
           command: |
-            cd $DIR
+            cd << parameters.dir >>
             make build
             if [ "$CIRCLE_BRANCH" == "master" ]; then
               docker login -u $DOCKER_USER -p $DOCKER_PASS
@@ -20,7 +22,7 @@ jobs:
             fi
 
 workflows:
-  version: 2
+  version: 2.1
   build:
     jobs:
       - build:
