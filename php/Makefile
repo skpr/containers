@@ -8,6 +8,9 @@ define build_image
 	docker build --no-cache --build-arg PHP_VERSION=${1} -t $(REGISTRY)-fpm:${1}-1.x fpm
 	docker build --no-cache --build-arg PHP_VERSION=${1} -t $(REGISTRY)-cli:${1}-1.x cli
 
+	# Testing production images.
+	container-structure-test test --image $(REGISTRY)-fpm:${1}-1.x --config fpm/tests.yml
+
 	# Building dev images.
 	docker build --no-cache --build-arg PHP_VERSION=${1} --build-arg IMAGE=$(REGISTRY)-fpm:${1}-1.x -t $(REGISTRY)-fpm:${1}-1.x-dev dev
 	docker build --no-cache --build-arg PHP_VERSION=${1} --build-arg IMAGE=$(REGISTRY)-cli:${1}-1.x -t $(REGISTRY)-cli:${1}-1.x-dev dev

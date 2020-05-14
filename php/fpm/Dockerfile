@@ -8,6 +8,9 @@ RUN apk --update --no-cache add \
 COPY conf.d/50_fpm.ini /etc/php/conf.d/50_fpm.ini
 COPY php-fpm.conf /etc/php/php-fpm.conf
 
+# PHP 7.2 does not support "decorate_workers_output" config.
+RUN if [ "$PHP_VERSION" == "7.2" ]; then sed -i '/^decorate_workers_output/d' /etc/php/php-fpm.conf; fi
+
 EXPOSE 9000
 
 USER skpr
