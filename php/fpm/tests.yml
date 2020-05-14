@@ -2,5 +2,5 @@ schemaVersion: '2.0.0'
 
 commandTests:
   - name: 'check configuration'
-    command: "php-fpm"
-    args: ["--test"]
+    command: "sh"
+    args: ["-c", "mkdir /data/app && php-fpm --test"]
