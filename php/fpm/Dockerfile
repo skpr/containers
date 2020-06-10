@@ -11,13 +11,13 @@ COPY php-fpm.conf /etc/php/php-fpm.conf
 # PHP 7.2 does not support "decorate_workers_output" config.
 RUN if [ "$PHP_VERSION" == "7.2" ]; then sed -i '/^decorate_workers_output/d' /etc/php/php-fpm.conf; fi
 
-EXPOSE 9000
+EXPOSE ${PHP_FPM_PORT}
 
 USER skpr
 
 # Configuration which can be overriden.
 # See /etc/php/php-fpm.conf
-ENV PHP_FPM_PORT=9000 \
+ENV PHP_FPM_PORT=${PHP_FPM_PORT} \
     PHP_FPM_MAX_CHILDREN=20 \
     PHP_FPM_START_SERVERS=2 \
     PHP_FPM_MIN_SPARE_SERVERS=2 \
