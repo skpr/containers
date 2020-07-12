@@ -32,7 +32,7 @@ RUN touch /etc/nginx/conf.d/custom.conf
 RUN touch /etc/nginx/redirects.conf
 
 # Configuration duplicated from the Node Dockerfile.
-RUN apk --update --no-cache add nodejs npm yarn bash make
+RUN apk --update --no-cache add nodejs npm yarn bash make zip
 
 # Install Github Hub
 RUN curl -sSL http://bins.skpr.io/hub-latest -o /usr/local/bin/hub && \
