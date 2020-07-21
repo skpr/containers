@@ -1,11 +1,32 @@
 #!/usr/bin/make -f
 
-REGISTRY=skpr/node
+IMAGE=skpr/node
 
-build:
-	docker build -t $(REGISTRY):10-1.x .
+define build
+  docker build --build-arg NODE_VERSION=$(1) -t $(IMAGE):$(1) .
+endef
 
-push:
-	docker push $(REGISTRY):10-1.x
+define push
+	docker push $(IMAGE):$(1)
+endef
+
+all: 10 12 14
+
+lint:
+	hadolint Dockerfile
+
+10:
+	$(call build,10)
+
+12:
+	$(call build,12)
+
+14:
+	$(call build,14)
+
+release: all
+	$(call push,10)
+	$(call push,12)
+	$(call push,14)
 
 .PHONY: *
