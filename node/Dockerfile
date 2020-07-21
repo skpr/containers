@@ -9,7 +9,7 @@ RUN apk add --no-cache \
   git \
   make \
   openssh-client \
-  python3
+  python2
 
 RUN deluser node
 RUN adduser -D -u 1000 skpr
