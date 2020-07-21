@@ -7,7 +7,7 @@ define buildimage
 endef
 
 define push
-	docker push $(IMAGE):$(1)
+	docker push $(IMAGE):$(1)-$(2)
 endef
 
 build: build10 build12 build14
@@ -25,8 +25,8 @@ build14:
 	$(call buildimage,14,1.x)
 
 release: all
-	$(call push,10)
-	$(call push,12)
-	$(call push,14)
+	$(call push,10,1.x)
+	$(call push,12,1.x)
+	$(call push,14,1.x)
 
 .PHONY: *
