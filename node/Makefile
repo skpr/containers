@@ -3,7 +3,7 @@
 IMAGE=skpr/node
 
 define buildimage
-  docker build --build-arg NODE_VERSION=$(1) -t $(IMAGE):$(1)-$(2) .
+  docker build --build-arg ALPINE_VERSION=$(1) --build-arg NODE_VERSION=$(2) -t $(IMAGE):$(2)-$(3) .
 endef
 
 define push
@@ -16,13 +16,13 @@ lint:
 	hadolint Dockerfile
 
 build10:
-	$(call buildimage,10,1.x)
+	$(call buildimage,3.10,10,1.x)
 
 build12:
-	$(call buildimage,12,1.x)
+	$(call buildimage,3.10,12,1.x)
 
 build14:
-	$(call buildimage,14,1.x)
+	$(call buildimage,3.10,14,1.x)
 
 release: build
 	$(call push,10,1.x)

@@ -1,5 +1,6 @@
 ARG NODE_VERSION=10
-FROM node:${NODE_VERSION}-alpine
+ARG ALPINE_VERSION=3.10
+FROM node:${NODE_VERSION}-alpine${ALPINE_VERSION}
 
 RUN apk add --no-cache ca-certificates bash make git
 
