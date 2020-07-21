@@ -24,7 +24,7 @@ build12:
 build14:
 	$(call buildimage,14,1.x)
 
-release: all
+release: build
 	$(call push,10,1.x)
 	$(call push,12,1.x)
 	$(call push,14,1.x)
