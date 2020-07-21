@@ -6,7 +6,7 @@ define buildimage
   docker build --build-arg ALPINE_VERSION=$(1) --build-arg NODE_VERSION=$(2) -t $(IMAGE):$(2)-$(3) .
 endef
 
-define push
+define pushimage
 	docker push $(IMAGE):$(1)-$(2)
 endef
 
@@ -24,9 +24,9 @@ build12:
 build14:
 	$(call buildimage,3.10,14,1.x)
 
-release: build
-	$(call push,10,1.x)
-	$(call push,12,1.x)
-	$(call push,14,1.x)
+push: build
+	$(call pushimage,10,1.x)
+	$(call pushimage,12,1.x)
+	$(call pushimage,14,1.x)
 
 .PHONY: *
