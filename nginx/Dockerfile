@@ -7,6 +7,7 @@ ADD default.conf /etc/nginx/conf.d/default.conf
 ADD status.conf /etc/nginx/conf.d/status.conf
 ADD security.conf /etc/nginx/conf.d/security.conf
 RUN touch /etc/nginx/conf.d/custom.conf
+RUN touch /etc/nginx/conf.d/http.conf
 RUN touch /etc/nginx/redirects.conf
 
 # We need to create and chown these directory for
