@@ -15,6 +15,9 @@ VOLUME /run/clamav
 VOLUME /var/lib/clamav
 VOLUME /var/log/clamav
 
+# Storage used by the Daemon when scanning files.
+VOLUME /tmp
+
 EXPOSE 3310
 
 CMD ["clamd"]
