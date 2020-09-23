@@ -10,7 +10,8 @@ RUN apk add --no-cache \
   make \
   openssh-client \
   python2 \
-  autoconf
+  autoconf \
+  automake
 
 RUN deluser node
 RUN adduser -D -u 1000 skpr
