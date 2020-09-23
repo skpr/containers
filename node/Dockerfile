@@ -10,8 +10,13 @@ RUN apk add --no-cache \
   make \
   openssh-client \
   python2 \
+  # Below are for packages such as https://www.npmjs.com/package/imagemin
   autoconf \
-  automake
+  automake \
+  libpng-dev \
+  libtool \
+  nasm
+
 
 RUN deluser node
 RUN adduser -D -u 1000 skpr
