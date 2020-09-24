@@ -21,9 +21,6 @@ define build_image
 
 	# Building CircleCI images.
 	docker build --no-cache --build-arg PHP_VERSION=${1} --build-arg IMAGE=$(REGISTRY)-cli:${1}-1.x-dev -t $(REGISTRY)-circleci:${1}-1.x circleci
-
-	# Building decoupled CircleCI images.
-	docker build --no-cache --build-arg PHP_VERSION=${1} --build-arg IMAGE=$(REGISTRY)-cli:${1}-1.x-dev -t $(REGISTRY)-circleci-decoupled:${1}-1.x circleci-decoupled
 endef
 
 define push_image
@@ -42,9 +39,6 @@ define push_image
 
 	# Pushing CircleCI images.
 	docker push $(REGISTRY)-circleci:${1}-1.x
-
-	# Pushing decoupled CircleCI images.
-	docker push $(REGISTRY)-circleci-decoupled:${1}-1.x
 endef
 
 build:
