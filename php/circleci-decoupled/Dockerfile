@@ -4,8 +4,8 @@ ARG PHP_VERSION=7.2
 
 USER root
 
-COPY fpm/php-fpm.conf /etc/php/php-fpm.conf
-COPY nginx/default.conf /etc/nginx/conf.d/default.conf
+RUN sed -i 's/\/data\/app/\/data\/api\/app/g' /etc/nginx/conf.d/default.conf
+RUN sed -i 's/\/data\/app/\/data\/api\/app/g' /etc/php/php-fpm.conf
 
 # Below are for packages such as https://www.npmjs.com/package/sharp
 RUN apk --update --no-cache add ca-certificates \
