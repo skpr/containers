@@ -32,7 +32,23 @@ RUN touch /etc/nginx/conf.d/custom.conf
 RUN touch /etc/nginx/redirects.conf
 
 # Configuration duplicated from the Node Dockerfile.
-RUN apk --update --no-cache add nodejs npm yarn bash make zip
+RUN apk --update --no-cache add nodejs\
+  npm \
+  yarn \
+  bash \
+  make \
+  zip \
+  ca-certificates \
+  g++ \
+  git \
+  openssh-client \
+  # Below are for packages such as https://www.npmjs.com/package/sharp
+  python2 \
+  autoconf \
+  automake \
+  libpng-dev \
+  libtool \
+  nasm
 
 # Install Github Hub
 RUN curl -sSL http://bins.skpr.io/hub-latest -o /usr/local/bin/hub && \
@@ -47,6 +63,12 @@ RUN chown -R skpr:skpr /var/lib/nginx \
                        /var/lib/nginx/logs \
                        /usr/lib/nginx/modules \
                        /run/nginx
+
+# Allow edits to php/nginx conf in circle jobs
+RUN chown :skpr /etc/nginx/conf.d/default.conf \
+  /etc/php/php-fpm.conf
+RUN chmod g+w /etc/nginx/conf.d/default.conf \
+  /etc/php/php-fpm.conf
 
 # Declaring these here means they inherit the "chown"
 # directive from above.
