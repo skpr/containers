@@ -6,7 +6,7 @@ dirs: &dirs
   - kubebuilder
   - nginx
   - node
-  - legacy-node
+  - node-legacy
   - php
   - solr
 
