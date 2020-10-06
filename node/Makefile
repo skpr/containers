@@ -16,13 +16,13 @@ lint:
 	hadolint Dockerfile
 
 build10:
-	$(call buildimage,3.10,10,1.x)
+	$(call buildimage,3.11,10,1.x)
 
 build12:
-	$(call buildimage,3.10,12,1.x)
+	$(call buildimage,3.11,12,1.x)
 
 build14:
-	$(call buildimage,3.10,14,1.x)
+	$(call buildimage,3.11,14,1.x)
 
 push: build
 	$(call pushimage,10,1.x)
