@@ -25,3 +25,5 @@ RUN mkdir /data && chown skpr:skpr /data
 WORKDIR /data
 
 USER skpr
+
+ENV PATH /data/node_modules/.bin:$PATH
