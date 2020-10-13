@@ -1,6 +1,7 @@
 #!/usr/bin/make -f
 
 REGISTRY=skpr/php
+NODE_VERSION=10-1.x
 
 define build_image
 	# Building production images.
@@ -20,7 +21,7 @@ define build_image
 	docker build --no-cache --build-arg PHP_VERSION=${1} --build-arg IMAGE=$(REGISTRY)-cli:${1}-1.x-dev -t $(REGISTRY)-cli:${1}-1.x-xdebug xdebug
 
 	# Building CircleCI images.
-	docker build --no-cache --build-arg PHP_VERSION=${1} --build-arg IMAGE=$(REGISTRY)-cli:${1}-1.x-dev -t $(REGISTRY)-circleci:${1}-1.x circleci
+	docker build --no-cache --build-arg PHP_VERSION=${1} --build-arg IMAGE=$(REGISTRY)-cli:${1}-1.x-dev --build-arg NODE_VERSION=$(NODE_VERSION) -t $(REGISTRY)-circleci:${1}-1.x circleci
 endef
 
 define push_image
