@@ -14,4 +14,6 @@ RUN PHP_VERISON=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") && \
 COPY conf.d/01_blackfire.ini /etc/php/conf.d/01_blackfire.ini
 COPY conf.d/50_dev.ini /etc/php/conf.d/50_dev.ini
 
+ENV PHP_FPM_REQUEST_TIMEOUT 600
+
 USER skpr
