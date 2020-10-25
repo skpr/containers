@@ -17,9 +17,11 @@ RUN apk --update --no-cache add \
       git \
       jq
 
-RUN curl -sS https://getcomposer.org/composer-1.phar -o composer.phar && \
-    mv composer.phar /usr/local/bin/composer && \
+RUN curl -sS https://getcomposer.org/composer-1.phar -o /usr/local/bin/composer && \
     chmod +x /usr/local/bin/composer
+
+RUN curl -sS https://getcomposer.org/composer-2.phar -o /usr/local/bin/composer2 && \
+    chmod +x /usr/local/bin/composer2
 
 ADD drush /etc/drush
 
