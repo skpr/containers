@@ -35,6 +35,9 @@ ADD nginx/security.conf /etc/nginx/conf.d/security.conf
 RUN touch /etc/nginx/conf.d/custom.conf
 RUN touch /etc/nginx/redirects.conf
 
+# Configuration file used for overriding default.conf server configuration.
+RUN mkdir -p /etc/nginx/overrides.d
+
 # Configuration duplicated from the Node Dockerfile.
 RUN apk --update --no-cache add bash \
   make \
