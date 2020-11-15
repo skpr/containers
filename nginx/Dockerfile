@@ -19,7 +19,8 @@ RUN touch /etc/nginx/redirects.conf
 # readonly and non-root execution.
 RUN mkdir -p /run/nginx
 RUN ln -sf /dev/stderr /var/log/nginx/error.log
-RUN chown -R skpr:skpr /var/lib/nginx \
+RUN chown -R skpr:skpr /etc/nginx/overrides.d \
+                       /var/lib/nginx \
                        /var/log/nginx \
                        /var/tmp/nginx \
                        /var/lib/nginx/logs \
