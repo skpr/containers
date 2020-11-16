@@ -79,7 +79,8 @@ RUN chown -R skpr:skpr /var/lib/nginx \
                        /var/tmp/nginx \
                        /var/lib/nginx/logs \
                        /usr/lib/nginx/modules \
-                       /run/nginx
+                       /run/nginx \
+                       /etc/nginx/overrides.d
 
 # Allow edits to php/nginx conf in circle jobs
 RUN chown :skpr /etc/nginx/conf.d/default.conf \
