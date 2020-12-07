@@ -1,4 +1,4 @@
-ARG SOLR_VERSION=5.5-slim
+ARG SOLR_VERSION=7.7-slim
 
 FROM solr:${SOLR_VERSION}
 LABEL maintainer="admin@skpr.io"
