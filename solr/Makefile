@@ -3,11 +3,11 @@
 REGISTRY=skpr/solr
 
 define build_image
-	docker build --build-arg SOLR_VERSION=${1} --build-arg SEARCH_API_SOLR_VERSION=${2} -t $(REGISTRY):${3}-${2} ${3}
+	docker build --build-arg SOLR_VERSION=${1} --build-arg SEARCH_API_SOLR_VERSION=${2} -t $(REGISTRY):${3}-${2} .
 endef
 
 define push_image:
-	docker push $(REGISTRY):7.x-3.x
+	docker push $(REGISTRY):${3}-${2}
 endef
 
 build_init:
