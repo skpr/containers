@@ -6,7 +6,7 @@ define build_image
 	docker build --build-arg SOLR_VERSION=${1} --build-arg SEARCH_API_SOLR_VERSION=${2} -t $(REGISTRY):${3}-${2} .
 endef
 
-define push_image:
+define push_image
 	docker push $(REGISTRY):${3}-${2}
 endef
 
