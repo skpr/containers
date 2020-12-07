@@ -18,10 +18,10 @@ push_init:
 
 build: build_init
 	$(call build_image,7.7-slim,3.x,7.x)
-	$(call build_image,5.5,1.x,5.x)
+	$(call build_image,5.5-slim,1.x,5.x)
 
 push: push_init
 	$(call push_image,7.7-slim,3.x,7.x)
-	$(call push_image,5.5,1.x,5.x)
+	$(call push_image,5.5-slim,1.x,5.x)
 
 .PHONY: *

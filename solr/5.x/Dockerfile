@@ -1,15 +1,19 @@
-ARG SOLR_VERSION=5.5
+ARG SOLR_VERSION=5.5-slim
 
 FROM solr:${SOLR_VERSION}
-LABEL maintainer="admin@previousnext.com.au"
+LABEL maintainer="admin@skpr.io"
 
-ENV SOLR_HEAP="256m"
 ENV SOLR_CORE="drupal"
 
-COPY conf /opt/search_api
+ENV SOLR_HEAP="256m"
+ENV SOLR_JAVA_MEM="-Xms256m -Xmx256m"
+ENV JVM_OPTS="-Xms256m -Xmx256m"
 
-COPY scripts/heap.sh /docker-entrypoint-initdb.d/set-heap.sh
-COPY scripts/core.sh /docker-entrypoint-initdb.d/set-core.sh
+ARG SEARCH_API_SOLR_VERSION=3.x
+COPY --chown=solr:solr search_api_solr/${SEARCH_API_SOLR_VERSION} /search_api
 
-# Where we store our persistent data so we can swap it for mounted storage.
-RUN mkdir /opt/solr/data
+VOLUME /opt/solr/server/solr/mycores
+VOLUME /opt/solr/server/logs
+VOLUME /tmp
+
+CMD ["/bin/bash", "-c", "solr-precreate ${SOLR_CORE} /search_api"]
