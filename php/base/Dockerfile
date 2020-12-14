@@ -33,7 +33,6 @@ RUN apk --update --no-cache add \
       php${PHP_VERSION}-fileinfo \
       php${PHP_VERSION}-gd \
       php${PHP_VERSION}-iconv \
-      php${PHP_VERSION}-json \
       php${PHP_VERSION}-mbstring \
       php${PHP_VERSION}-opcache \
       php${PHP_VERSION}-openssl \
@@ -64,8 +63,13 @@ RUN apk --update --no-cache add \
       poppler-utils \
       libsodium
 
+# https://php.watch/versions/8.0/ext-json
+RUN if [ "$PHP_VERSION" != "8.0" ]; then \
+    apk --update --no-cache add php${PHP_VERSION}-json \
+fi
 
-RUN if [ "$PHP_VERSION" != "7.4" ]; then \
+# @todo, Remove once 7.3 is depreciated.
+RUN if [ "$PHP_VERSION" == "7.3" ]; then \
     mv /etc/php/${PHP_VERSION}/* /etc/php/ && \
     rm -fR /etc/php/${PHP_VERSION} && \
     ln -sf /etc/php /etc/php/${PHP_VERSION} && \
