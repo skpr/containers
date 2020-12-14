@@ -17,7 +17,7 @@ RUN touch /etc/nginx/redirects.conf
 
 # We need to create and chown these directory for
 # readonly and non-root execution.
-RUN mkdir -p /run/nginx
+RUN mkdir -p /run/nginx /var/tmp/nginx
 RUN ln -sf /dev/stderr /var/log/nginx/error.log
 RUN chown -R skpr:skpr /var/lib/nginx \
                        /var/log/nginx \
