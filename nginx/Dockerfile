@@ -3,16 +3,21 @@ FROM skpr/base:1.x
 RUN apk --update --no-cache add nginx
 
 ADD nginx.conf /etc/nginx/nginx.conf
+
 ADD default.conf /etc/nginx/conf.d/default.conf
 ADD status.conf /etc/nginx/conf.d/status.conf
 ADD security.conf /etc/nginx/conf.d/security.conf
-RUN touch /etc/nginx/conf.d/custom.conf
 RUN touch /etc/nginx/conf.d/http.conf
+
+# Configuration file used for overriding default.conf server configuration.
+RUN mkdir -p /etc/nginx/overrides.d
+
+# Configuration file used for managing redirects.
 RUN touch /etc/nginx/redirects.conf
 
 # We need to create and chown these directory for
 # readonly and non-root execution.
-RUN mkdir -p /run/nginx
+RUN mkdir -p /run/nginx /var/tmp/nginx
 RUN ln -sf /dev/stderr /var/log/nginx/error.log
 RUN chown -R skpr:skpr /var/lib/nginx \
                        /var/log/nginx \

@@ -1,3 +1,7 @@
+ARG NODE_VERSION=10-1.x
+ARG PHP_VERSION=7.2
+FROM skpr/node:${NODE_VERSION} as node
+
 ARG PHP_VERSION=7.2
 FROM skpr/php-cli:${PHP_VERSION}-1.x
 ARG PHP_VERSION=7.2
@@ -31,11 +35,11 @@ ADD nginx/security.conf /etc/nginx/conf.d/security.conf
 RUN touch /etc/nginx/conf.d/custom.conf
 RUN touch /etc/nginx/redirects.conf
 
+# Configuration file used for overriding default.conf server configuration.
+RUN mkdir -p /etc/nginx/overrides.d
+
 # Configuration duplicated from the Node Dockerfile.
-RUN apk --update --no-cache add nodejs\
-  npm \
-  yarn \
-  bash \
+RUN apk --update --no-cache add bash \
   make \
   zip \
   ca-certificates \
@@ -50,6 +54,19 @@ RUN apk --update --no-cache add nodejs\
   libtool \
   nasm
 
+COPY --chown=skpr:skpr --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
+COPY --chown=skpr:skpr --from=node /usr/local/bin/node /usr/local/bin/node
+COPY --chown=skpr:skpr --from=node /opt /opt
+RUN ln -s /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm && \
+  ln -s /usr/local/lib/node_modules/npm/bin/npx-cli.js /usr/local/bin/npx && \
+  ln -s `find /opt -name yarn|head -1` /usr/local/bin/yarn && \
+  ln -s `find /opt -name yarnpkg|head -1` /usr/local/bin/yarnpkg && \
+  node --version && \
+  npm --version && \
+  npx --version && \
+  yarn --version && \
+  yarnpkg --version
+
 # Install Github Hub
 RUN curl -sSL http://bins.skpr.io/hub-latest -o /usr/local/bin/hub && \
   chmod +rx /usr/local/bin/hub
@@ -62,7 +79,8 @@ RUN chown -R skpr:skpr /var/lib/nginx \
                        /var/tmp/nginx \
                        /var/lib/nginx/logs \
                        /usr/lib/nginx/modules \
-                       /run/nginx
+                       /run/nginx \
+                       /etc/nginx/overrides.d
 
 # Allow edits to php/nginx conf in circle jobs
 RUN chown :skpr /etc/nginx/conf.d/default.conf \

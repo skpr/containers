@@ -8,6 +8,7 @@ dirs: &dirs
   - node
   - php
   - solr
+  - mysql
 
 jobs:
   build:

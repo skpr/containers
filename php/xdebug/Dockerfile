@@ -8,3 +8,4 @@ RUN apk add php${PHP_VERSION}-xdebug
 USER skpr
 
 COPY conf.d/01_xdebug.ini /etc/php/conf.d/01_xdebug.ini
+ENV PHP_FPM_REQUEST_TIMEOUT 600
