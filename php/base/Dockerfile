@@ -54,6 +54,7 @@ RUN apk --update --no-cache add \
       php${PHP_VERSION}-xml \
       php${PHP_VERSION}-xmlreader \
       php${PHP_VERSION}-xmlwriter \
+      php${PHP_VERSION}-zlib \
       php${PHP_VERSION}-zip \
       pngquant \
       jpegoptim \
