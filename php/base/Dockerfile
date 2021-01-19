@@ -33,7 +33,6 @@ RUN apk --update --no-cache add \
       php${PHP_VERSION}-fileinfo \
       php${PHP_VERSION}-gd \
       php${PHP_VERSION}-iconv \
-      php${PHP_VERSION}-json \
       php${PHP_VERSION}-mbstring \
       php${PHP_VERSION}-opcache \
       php${PHP_VERSION}-openssl \
@@ -54,6 +53,7 @@ RUN apk --update --no-cache add \
       php${PHP_VERSION}-xml \
       php${PHP_VERSION}-xmlreader \
       php${PHP_VERSION}-xmlwriter \
+      php${PHP_VERSION}-zlib \
       php${PHP_VERSION}-zip \
       pngquant \
       jpegoptim \
@@ -64,8 +64,13 @@ RUN apk --update --no-cache add \
       poppler-utils \
       libsodium
 
+# https://php.watch/versions/8.0/ext-json
+RUN if [ "$PHP_VERSION" != "8.0" ]; then \
+    apk --update --no-cache add php${PHP_VERSION}-json; \
+fi
 
-RUN if [ "$PHP_VERSION" != "7.4" ]; then \
+# @todo, Remove once 7.3 is depreciated.
+RUN if [ "$PHP_VERSION" == "7.3" ]; then \
     mv /etc/php/${PHP_VERSION}/* /etc/php/ && \
     rm -fR /etc/php/${PHP_VERSION} && \
     ln -sf /etc/php /etc/php/${PHP_VERSION} && \
@@ -75,7 +80,7 @@ fi
 # New Relic - https://docs.newrelic.com/docs/release-notes/agent-release-notes/php-release-notes
 RUN export NR_INSTALL_SILENT=true && \
     export NR_INSTALL_USE_CP_NOT_LN=true && \
-    export NR_VERSION=9.11.0.267 && \
+    export NR_VERSION=9.15.0.293 && \
     export NR_FILENAME=newrelic-php5-${NR_VERSION}-linux-musl && \
     curl -sSL https://download.newrelic.com/php_agent/archive/${NR_VERSION}/${NR_FILENAME}.tar.gz | gzip -dc | tar xf - && \
     cd ${NR_FILENAME} && ./newrelic-install install && \
