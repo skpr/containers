@@ -6,9 +6,13 @@ dirs: &dirs
   - kubebuilder
   - nginx
   - node
-  - php
   - solr
   - mysql
+
+php_versions: &php_versions
+  - "7.3"
+  - "7.4"
+  - "8.0"
 
 jobs:
   build:
@@ -30,6 +34,25 @@ jobs:
               docker login -u $DOCKER_USER -p $DOCKER_PASS
               make push
             fi
+  build_php:
+    docker:
+      - image: previousnext/container-builder:latest
+    parameters:
+      php_version:
+        type: string
+        default: ""
+    steps:
+      - setup_remote_docker
+      - checkout
+      - run:
+          name: Build, Test and Release
+          command: |
+            cd php
+            make build PHP_VERSION=<< parameters.php_version >>
+            if [ "$CIRCLE_BRANCH" == "master" ]; then
+              docker login -u $DOCKER_USER -p $DOCKER_PASS
+              make push PHP_VERSION=<< parameters.php_version >>
+            fi
 
 workflows:
   build:
@@ -38,13 +61,20 @@ workflows:
           matrix:
             parameters:
               dir: *dirs
-
+      - build_php:
+          matrix:
+            parameters:
+              php_version: *php_versions
   nightly:
     jobs:
       - build:
           matrix:
             parameters:
               dir: *dirs
+      - build_php:
+          matrix:
+            parameters:
+              php_version: *php_versions
     triggers:
       - schedule:
           # Scheduled build for 2am AEST nightly.
