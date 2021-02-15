@@ -78,11 +78,6 @@ workflows:
           solr_image: 7.7-slim
           solr_version: 7.x
           search_api_solr_version: 4.x
-      - build_solr:
-          name: build_solr_8.x-4.x
-          solr_image: 8.5-slim
-          solr_version: 8.x
-          search_api_solr_version: 4.x
 
   nightly:
     jobs:
