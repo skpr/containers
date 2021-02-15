@@ -1,6 +1,6 @@
-ARG SOLR_VERSION=7.7-slim
+ARG SOLR_IMAGE=7.7-slim
 
-FROM solr:${SOLR_VERSION}
+FROM solr:${SOLR_IMAGE}
 LABEL maintainer="admin@skpr.io"
 
 ENV SOLR_CORE="drupal"

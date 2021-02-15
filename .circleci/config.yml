@@ -7,7 +7,6 @@ dirs: &dirs
   - nginx
   - node
   - php
-  - solr
   - mysql
 
 jobs:
@@ -31,6 +30,32 @@ jobs:
               make push
             fi
 
+  build_solr:
+    docker:
+      - image: previousnext/container-builder:latest
+    parameters:
+      solr_image:
+        type: string
+        default: ""
+      solr_version:
+        type: string
+        default: ""
+      search_api_solr_version:
+        type: string
+        default: ""
+    steps:
+      - setup_remote_docker
+      - checkout
+      - run:
+          name: Build, Test and Release
+          command: |
+            cd php
+            make build SOLR_IMAGE=<< parameters.solr_image >> SOLR_VERSION=<< parameters.solr_version >> SEARCH_API_SOLR_VERSION=<< parameters.search_api_solr_version >>
+            if [ "$CIRCLE_BRANCH" == "master" ]; then
+              docker login -u $DOCKER_USER -p $DOCKER_PASS
+              make push SOLR_IMAGE=<< parameters.solr_image >> SOLR_VERSION=<< parameters.solr_version >> SEARCH_API_SOLR_VERSION=<< parameters.search_api_solr_version >>
+            fi
+
 workflows:
   build:
     jobs:
@@ -38,6 +63,26 @@ workflows:
           matrix:
             parameters:
               dir: *dirs
+      - build_solr:
+          name: build_solr_5.x-1.x
+          solr_image: 5.5-slim
+          solr_version: 5.x
+          search_api_solr_version: 1.x
+      - build_solr:
+          name: build_solr_7.x-3.x
+          solr_image: 7.7-slim
+          solr_version: 7.x
+          search_api_solr_version: 3.x
+      - build_solr:
+          name: build_solr_7.x-4.x
+          solr_image: 7.7-slim
+          solr_version: 7.x
+          search_api_solr_version: 4.x
+      - build_solr:
+          name: build_solr_8.x-4.x
+          solr_image: 8.5-slim
+          solr_version: 8.x
+          search_api_solr_version: 4.x
 
   nightly:
     jobs:

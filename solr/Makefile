@@ -2,13 +2,11 @@
 
 REGISTRY=skpr/solr
 
-define build_image
-	docker build --build-arg SOLR_VERSION=${1} --build-arg SEARCH_API_SOLR_VERSION=${2} -t $(REGISTRY):${3}-${2} .
-endef
+build: validate build_init
+	docker build --build-arg SOLR_IMAGE=${SOLR_IMAGE} --build-arg SEARCH_API_SOLR_VERSION=${SEARCH_API_SOLR_VERSION} -t $(REGISTRY):${SOLR_VERSION}-${SEARCH_API_SOLR_VERSION} .
 
-define push_image
-	docker push $(REGISTRY):${3}-${2}
-endef
+push: validate push_init
+	docker push $(REGISTRY):${SOLR_VERSION}-${SEARCH_API_SOLR_VERSION}
 
 build_init:
 	docker build -t $(REGISTRY):init init
@@ -16,12 +14,15 @@ build_init:
 push_init:
 	docker push $(REGISTRY):init
 
-build: build_init
-	$(call build_image,7.7-slim,3.x,7.x)
-	$(call build_image,5.5-slim,1.x,5.x)
-
-push: push_init
-	$(call push_image,7.7-slim,3.x,7.x)
-	$(call push_image,5.5-slim,1.x,5.x)
+validate:
+ifndef SOLR_IMAGE
+	$(error SOLR_IMAGE is undefined)
+endif
+ifndef SEARCH_API_SOLR_VERSION
+	$(error SEARCH_API_SOLR_VERSION is undefined)
+endif
+ifndef SOLR_VERSION
+	$(error SOLR_VERSION is undefined)
+endif
 
 .PHONY: *
