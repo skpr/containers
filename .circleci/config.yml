@@ -49,7 +49,7 @@ jobs:
       - run:
           name: Build, Test and Release
           command: |
-            cd php
+            cd solr
             make build SOLR_IMAGE=<< parameters.solr_image >> SOLR_VERSION=<< parameters.solr_version >> SEARCH_API_SOLR_VERSION=<< parameters.search_api_solr_version >>
             if [ "$CIRCLE_BRANCH" == "master" ]; then
               docker login -u $DOCKER_USER -p $DOCKER_PASS
