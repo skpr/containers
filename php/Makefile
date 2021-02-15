@@ -13,8 +13,8 @@ build: validate
 	container-structure-test test --image $(REGISTRY)-fpm:$(PHP_VERSION)-1.x --config fpm/tests.yml
 	
 	# Building dev images.
-	docker build --no-cache --build-arg PHP_VERSION=$(PHP_VERSION) --build-arg IMAGE=$(REGISTRY)-fpm:$(PHP_VERSION)-1.x -t $(REGISTRY)-fpm:$(PHP_VERSION)-1.x-dev dev
-	docker build --no-cache --build-arg PHP_VERSION=$(PHP_VERSION) --build-arg IMAGE=$(REGISTRY)-cli:$(PHP_VERSION)-1.x -t $(REGISTRY)-cli:$(PHP_VERSION)-1.x-dev dev
+	docker build --no-cache --build-arg IMAGE=$(REGISTRY)-fpm:$(PHP_VERSION)-1.x -t $(REGISTRY)-fpm:$(PHP_VERSION)-1.x-dev dev
+	docker build --no-cache --build-arg IMAGE=$(REGISTRY)-cli:$(PHP_VERSION)-1.x -t $(REGISTRY)-cli:$(PHP_VERSION)-1.x-dev dev
 	
 	# Building Xdebug images.
 	docker build --no-cache --build-arg PHP_VERSION=$(PHP_VERSION) --build-arg IMAGE=$(REGISTRY)-fpm:$(PHP_VERSION)-1.x-dev -t $(REGISTRY)-fpm:$(PHP_VERSION)-1.x-xdebug xdebug
