@@ -6,8 +6,6 @@ dirs: &dirs
   - kubebuilder
   - nginx
   - node
-  - solr
-  - php
   - mysql
 
 php_versions: &php_versions
