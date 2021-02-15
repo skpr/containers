@@ -3,7 +3,7 @@
 REGISTRY=skpr/solr
 
 build: validate build_init
-	docker build --build-arg SOLR_IMAGE=${SOLR_IMAGE} --build-arg SEARCH_API_SOLR_VERSION=${SEARCH_API_SOLR_VERSION} -t $(REGISTRY):${SOLR_VERSION}-${SEARCH_API_SOLR_VERSION} .
+	docker build --build-arg SOLR_IMAGE=${SOLR_IMAGE} --build-arg SEARCH_API_SOLR_VERSION=${SEARCH_API_SOLR_VERSION} --build-arg SOLR_VERSION=${SOLR_VERSION} -t $(REGISTRY):${SOLR_VERSION}-${SEARCH_API_SOLR_VERSION} .
 
 push: validate push_init
 	docker push $(REGISTRY):${SOLR_VERSION}-${SEARCH_API_SOLR_VERSION}
