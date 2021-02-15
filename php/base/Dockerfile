@@ -19,7 +19,7 @@ RUN mkdir /data && \
 WORKDIR /data
 
 RUN apk add --no-cache curl ca-certificates && \
-    curl -L https://packages.skpr.io/php-alpine/skpr.rsa.pub -o /etc/apk/keys/skpr.rsa.pub && \
+    curl -sSL https://packages.skpr.io/php-alpine/skpr.rsa.pub -o /etc/apk/keys/skpr.rsa.pub && \
     echo "https://packages.skpr.io/php-alpine/${ALPINE_VERSION}/php${PHP_VERSION}" >> /etc/apk/repositories
 
 RUN apk --update --no-cache add \
