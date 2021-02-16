@@ -87,10 +87,10 @@ RUN export NR_INSTALL_SILENT=true && \
     rm -fR /data/${NR_FILENAME} && \
     rm -f /etc/php/conf.d/newrelic.ini
 
-RUN curl -sSL https://github.com/skpr/mail/releases/download/v0.0.6/skprmail_linux_amd64 -o /usr/local/bin/skprmail && \
+RUN curl -L https://github.com/skpr/mail/releases/download/v0.0.6/skprmail_linux_amd64 -o /usr/local/bin/skprmail && \
     chmod +rx /usr/local/bin/skprmail
 
-RUN curl -sSL https://s3.amazonaws.com/pnx-bins/docconv-v1.0.0-129-geedabc4-alpine${ALPINE_VERSION} -o /usr/local/bin/docconv && \
+RUN curl -L https://s3.amazonaws.com/pnx-bins/docconv-${ALPINE_VERSION} -o /usr/local/bin/docconv && \
     chmod +rx /usr/local/bin/docconv
 
 ADD conf.d/01_apcu.ini /etc/php/conf.d/01_apcu.ini

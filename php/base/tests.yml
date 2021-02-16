@@ -1,0 +1,8 @@
+schemaVersion: '2.0.0'
+
+commandTests:
+  - name:  "docconv"
+    command: "docconv"
+    args: ["--help"]
+    expectedError: ["Usage of docconv"]
+    exitCode: 2
