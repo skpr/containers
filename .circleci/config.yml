@@ -1,7 +1,6 @@
 version: 2.1
 
 dirs: &dirs
-  - base
   - clamav
   - kubebuilder
   - nginx
@@ -25,6 +24,11 @@ jobs:
       - setup_remote_docker
       - checkout
       - run:
+          name: "Build: Base Image"
+          command: |
+            cd base
+            make build
+      - run:
           name: Build, Test and Release
           command: |
             cd << parameters.dir >>
@@ -33,6 +37,7 @@ jobs:
               docker login -u $DOCKER_USER -p $DOCKER_PASS
               make push
             fi
+
   build_php:
     docker:
       - image: previousnext/container-builder:latest
@@ -43,6 +48,11 @@ jobs:
     steps:
       - setup_remote_docker
       - checkout
+      - run:
+          name: "Build: Base Image"
+          command: |
+            cd base
+            make build
       - run:
           name: Build, Test and Release
           command: |
@@ -69,6 +79,11 @@ jobs:
     steps:
       - setup_remote_docker
       - checkout
+      - run:
+          name: "Build: Base Image"
+          command: |
+            cd base
+            make build
       - run:
           name: Build, Test and Release
           command: |
