@@ -1,3 +1,3 @@
 FROM skpr/nginx:1.x
 
-ADD default.conf /etc/nginx/conf.d/default.conf
+ADD fastcgi_dev.conf /etc/nginx/overrides.d/fastcgi/dev.conf
