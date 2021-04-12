@@ -54,25 +54,7 @@ RUN apk --update --no-cache add bash \
   libtool \
   nasm
 
-# Install latest version of libvips from source.
-# Gatsby 3 requires sharp 0.27.0 or higher.
-# sharp requires libvips 8.10.5 or higher.
-# Only Alpine 3.13 has libvips 8.10+ available via apk.
-RUN apk --update --no-cache add glib-dev \
-  expat-dev \
-  jpeg-dev
-RUN cd /tmp && \
-  wget https://github.com/libvips/libvips/releases/download/v8.10.6/vips-8.10.6.tar.gz
-RUN cd /tmp && \
-  tar -xzvf vips-8.10.6.tar.gz
-RUN cd /tmp/vips-8.10.6 && \
-  ./configure
-RUN cd /tmp/vips-8.10.6 && \
- make
-RUN cd /tmp/vips-8.10.6 && \
-  make install
-RUN rm -rf /tmp/vips-8.10.6
-
+COPY --from=node /usr/local/lib/libvips* /usr/local/lib/
 COPY --chown=skpr:skpr --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
 COPY --chown=skpr:skpr --from=node /usr/local/bin/node /usr/local/bin/node
 COPY --chown=skpr:skpr --from=node /opt /opt
