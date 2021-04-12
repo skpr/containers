@@ -55,6 +55,7 @@ RUN apk --update --no-cache add bash \
   nasm
 
 COPY --from=node /usr/local/lib/libvips* /usr/local/lib/
+COPY --from=node /usr/local/lib/pkgconfig /usr/local/lib/pkgconfig
 COPY --chown=skpr:skpr --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
 COPY --chown=skpr:skpr --from=node /usr/local/bin/node /usr/local/bin/node
 COPY --chown=skpr:skpr --from=node /opt /opt
