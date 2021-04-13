@@ -52,7 +52,10 @@ RUN apk --update --no-cache add bash \
   automake \
   libpng-dev \
   libtool \
-  nasm
+  nasm \
+  glib-dev \
+  expat-dev \
+  jpeg-dev
 
 COPY --from=node /usr/local/lib/libvips* /usr/local/lib/
 COPY --from=node /usr/local/lib/pkgconfig /usr/local/lib/pkgconfig

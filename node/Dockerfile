@@ -16,7 +16,10 @@ RUN apk add --no-cache \
   libpng-dev \
   libtool \
   nasm \
-  util-linux
+  util-linux \
+  glib-dev \
+  expat-dev \
+  jpeg-dev
 
 RUN mkdir -p /usr/local/lib
 ADD binaries/lib-vips-8.10.6-linuxmusl-x64.tar.gz /usr/local/lib
