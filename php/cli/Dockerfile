@@ -4,6 +4,8 @@ ARG PHP_VERSION=7.2
 
 ENV PHP_MEMORY_LIMIT=256M
 
+ENV PATH=$PATH:$EXTRA_PATH
+
 ENV PS1='\u@\h:\W \$ '
 
 RUN apk --update --no-cache add \

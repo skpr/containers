@@ -15,7 +15,8 @@ RUN apk add --no-cache \
   automake \
   libpng-dev \
   libtool \
-  nasm
+  nasm \
+  util-linux
 
 
 RUN deluser node
