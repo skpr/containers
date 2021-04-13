@@ -90,7 +90,8 @@ RUN export NR_INSTALL_SILENT=true && \
 RUN curl -L https://github.com/skpr/mail/releases/download/v0.0.6/skprmail_linux_amd64 -o /usr/local/bin/skprmail && \
     chmod +rx /usr/local/bin/skprmail
 
-RUN curl -L https://s3.amazonaws.com/pnx-bins/docconv-${ALPINE_VERSION} -o /usr/local/bin/docconv && \
+# Built using an updated build approach in this fork: https://github.com/skpr/docconv
+RUN curl -L https://s3.amazonaws.com/pnx-bins/docconv-d9ea05fbd50ab02d7a1d23af7ecb11d37c3b68be-${ALPINE_VERSION} -o /usr/local/bin/docconv && \
     chmod +rx /usr/local/bin/docconv
 
 ADD conf.d/01_apcu.ini /etc/php/conf.d/01_apcu.ini
