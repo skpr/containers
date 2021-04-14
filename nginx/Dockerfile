@@ -22,6 +22,7 @@ RUN ln -sf /dev/stderr /var/log/nginx/error.log
 RUN chown -R skpr:skpr /var/lib/nginx \
                        /var/log/nginx \
                        /var/tmp/nginx \
+                       /var/lib/nginx/tmp \
                        /var/lib/nginx/logs \
                        /usr/lib/nginx/modules \
                        /run/nginx
@@ -30,6 +31,7 @@ RUN chown -R skpr:skpr /var/lib/nginx \
 # directive from above.
 VOLUME /run/nginx
 VOLUME /var/tmp/nginx
+VOLUME /var/lib/nginx/tmp
 
 EXPOSE 8080
 
