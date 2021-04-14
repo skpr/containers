@@ -87,7 +87,7 @@ RUN export NR_INSTALL_SILENT=true && \
     rm -fR /data/${NR_FILENAME} && \
     rm -f /etc/php/conf.d/newrelic.ini
 
-RUN curl -L https://github.com/skpr/mail/releases/download/v0.0.6/skprmail_linux_amd64 -o /usr/local/bin/skprmail && \
+RUN curl -sSL https://github.com/skpr/mail/releases/download/v0.0.6/skprmail_linux_amd64 -o /usr/local/bin/skprmail && \
     chmod +rx /usr/local/bin/skprmail
 
 # Built using an updated build approach in this fork: https://github.com/skpr/docconv
