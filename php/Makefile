@@ -10,6 +10,7 @@ build: validate
 	docker build --no-cache --build-arg PHP_VERSION=$(PHP_VERSION) -t $(REGISTRY)-cli:$(PHP_VERSION)-1.x cli
 	
 	# Testing production images.
+	container-structure-test test --image $(REGISTRY):$(PHP_VERSION)-1.x --config base/tests.yml
 	container-structure-test test --image $(REGISTRY)-fpm:$(PHP_VERSION)-1.x --config fpm/tests.yml
 	
 	# Building dev images.

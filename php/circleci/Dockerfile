@@ -77,7 +77,7 @@ RUN curl -sSL https://github.com/fabpot/local-php-security-checker/releases/down
 
 # We need to create and chown these directory for
 # readonly and non-root execution.
-RUN mkdir -p /run/nginx
+RUN mkdir -p /run/nginx /var/tmp/nginx
 RUN chown -R skpr:skpr /var/lib/nginx \
                        /var/log/nginx \
                        /var/tmp/nginx \
