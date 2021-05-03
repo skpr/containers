@@ -12,6 +12,7 @@ build: validate
 	# Testing production images.
 	container-structure-test test --image $(REGISTRY):$(PHP_VERSION)-1.x --config base/tests.yml
 	container-structure-test test --image $(REGISTRY)-fpm:$(PHP_VERSION)-1.x --config fpm/tests.yml
+	container-structure-test test --image $(REGISTRY)-cli:$(PHP_VERSION)-1.x --config cli/tests.yml
 	
 	# Building dev images.
 	docker build --no-cache --build-arg IMAGE=$(REGISTRY)-fpm:$(PHP_VERSION)-1.x -t $(REGISTRY)-fpm:$(PHP_VERSION)-1.x-dev dev
