@@ -80,7 +80,7 @@ fi
 # New Relic - https://docs.newrelic.com/docs/release-notes/agent-release-notes/php-release-notes
 RUN export NR_INSTALL_SILENT=true && \
     export NR_INSTALL_USE_CP_NOT_LN=true && \
-    export NR_VERSION=9.15.0.293 && \
+    export NR_VERSION=9.17.1.301 && \
     export NR_FILENAME=newrelic-php5-${NR_VERSION}-linux-musl && \
     curl -sSL https://download.newrelic.com/php_agent/archive/${NR_VERSION}/${NR_FILENAME}.tar.gz | gzip -dc | tar xf - && \
     cd ${NR_FILENAME} && ./newrelic-install install && \
