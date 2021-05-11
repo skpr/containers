@@ -16,7 +16,7 @@ lint:
 	hadolint Dockerfile
 
 build12:
-	$(call buildimage,3.13,12,1.x)
+	$(call buildimage,3.12,12,1.x)
 
 build14:
 	$(call buildimage,3.13,14,1.x)
