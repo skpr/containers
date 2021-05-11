@@ -5,4 +5,4 @@ commandTests:
     command: "docconv"
     args: ["--help"]
     expectedError: ["Usage of docconv"]
-    exitCode: 2
+    exitCode: 0
