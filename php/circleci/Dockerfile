@@ -52,7 +52,8 @@ RUN apk --update --no-cache add bash \
   automake \
   libpng-dev \
   libtool \
-  nasm
+  nasm \
+  vips
 
 COPY --chown=skpr:skpr --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
 COPY --chown=skpr:skpr --from=node /usr/local/bin/node /usr/local/bin/node
