@@ -53,7 +53,7 @@ RUN apk --update --no-cache add bash \
   libpng-dev \
   libtool \
   nasm \
-  vips
+  vips-dev
 
 COPY --chown=skpr:skpr --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
 COPY --chown=skpr:skpr --from=node /usr/local/bin/node /usr/local/bin/node

@@ -17,7 +17,7 @@ RUN apk add --no-cache \
   libtool \
   nasm \
   util-linux \
-  vips
+  vips-dev
 
 
 RUN deluser node
