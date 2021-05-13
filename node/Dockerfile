@@ -16,7 +16,8 @@ RUN apk add --no-cache \
   libpng-dev \
   libtool \
   nasm \
-  util-linux
+  util-linux \
+  vips-dev
 
 
 RUN deluser node
