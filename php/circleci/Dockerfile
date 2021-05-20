@@ -72,6 +72,14 @@ RUN ln -s /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm && \
 RUN curl -sSL http://bins.skpr.io/hub-latest -o /usr/local/bin/hub && \
   chmod +rx /usr/local/bin/hub
 
+# Install Github CLI
+RUN export GITHUB_CLI_VERSION=1.10.2 && \
+    export GITHUB_CLI_DIST=gh_${GITHUB_CLI_VERSION}_linux_amd64 && \
+    curl -sSL https://github.com/cli/cli/releases/download/v${GITHUB_CLI_VERSION}/${GITHUB_CLI_DIST}.tar.gz -o /tmp/${GITHUB_CLI_DIST}.tar.gz && \
+    tar xf /tmp/${GITHUB_CLI_DIST}.tar.gz -C /tmp && \
+    mv /tmp/${GITHUB_CLI_DIST}/bin/gh /usr/local/bin/ && \
+    chmod +rx /usr/local/bin/gh
+
 # Install PHP Local Security Checker
 RUN curl -sSL https://github.com/fabpot/local-php-security-checker/releases/download/v1.0.0/local-php-security-checker_1.0.0_linux_amd64 -o /usr/local/bin/local-php-security-checker && \
   chmod +rx /usr/local/bin/local-php-security-checker
