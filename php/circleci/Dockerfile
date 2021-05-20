@@ -76,7 +76,7 @@ RUN curl -sSL http://bins.skpr.io/hub-latest -o /usr/local/bin/hub && \
 RUN export GITHUB_CLI_VERSION=1.10.2 && \
     export GITHUB_CLI_DIST=gh_${GITHUB_CLI_VERSION}_linux_amd64 && \
     curl -sSL https://github.com/cli/cli/releases/download/v${GITHUB_CLI_VERSION}/${GITHUB_CLI_DIST}.tar.gz -o /tmp/${GITHUB_CLI_DIST}.tar.gz && \
-    tar xvf /tmp/${GITHUB_CLI_DIST}.tar.gz -C /tmp && \
+    tar xf /tmp/${GITHUB_CLI_DIST}.tar.gz -C /tmp && \
     mv /tmp/${GITHUB_CLI_DIST}/bin/gh /usr/local/bin/ && \
     chmod +rx /usr/local/bin/gh
 
