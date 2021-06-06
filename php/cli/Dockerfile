@@ -22,7 +22,7 @@ RUN apk --update --no-cache add \
 RUN curl -sS https://getcomposer.org/composer-1.phar -o /usr/local/bin/composer && \
     chmod +x /usr/local/bin/composer
 
-RUN curl -sS https://getcomposer.org/composer-2.phar -o /usr/local/bin/composer2 && \
+RUN curl -sS https://getcomposer.org/download/2.0.14/composer.phar -o /usr/local/bin/composer2 && \
     chmod +x /usr/local/bin/composer2
 
 ADD drush /etc/drush
