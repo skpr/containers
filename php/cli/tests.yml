@@ -10,3 +10,8 @@ commandTests:
     command: "composer2"
     expectedOutput: ["Available commands"]
     exitCode: 0
+
+  - name: 'skpr-crond'
+    command: "skpr-crond"
+    expectedOutput: ["usage: skpr-crond [<flags>]"]
+    exitCode: 0
