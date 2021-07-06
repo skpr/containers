@@ -13,5 +13,6 @@ commandTests:
 
   - name: 'skpr-crond'
     command: "skpr-crond"
+    args: ["--help"]
     expectedOutput: ["usage: skpr-crond [<flags>]"]
     exitCode: 0
