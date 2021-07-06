@@ -14,5 +14,4 @@ commandTests:
   - name: 'skpr-crond'
     command: "skpr-crond"
     args: ["--help"]
-    expectedOutput: ["/etc/skpr/data/cron.yml"]
     exitCode: 0
