@@ -15,6 +15,7 @@ USER skpr
 # Configuration which can be overriden.
 # See /etc/php/php-fpm.conf
 ENV PHP_FPM_PORT=9000 \
+    PHP_FPM_PROCESS_MANAGER=dynamic \
     PHP_FPM_MAX_CHILDREN=20 \
     PHP_FPM_START_SERVERS=2 \
     PHP_FPM_MIN_SPARE_SERVERS=2 \
