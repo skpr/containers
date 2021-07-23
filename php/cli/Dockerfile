@@ -19,10 +19,10 @@ RUN apk --update --no-cache add \
       git \
       jq
 
-RUN curl -sS https://getcomposer.org/composer-1.phar -o /usr/local/bin/composer1 && \
+RUN curl -sS https://getcomposer.org/download/latest-1.x/composer.phar -o /usr/local/bin/composer1 && \
     chmod +x /usr/local/bin/composer1
 
-RUN curl -sS https://getcomposer.org/download/2.0.14/composer.phar -o /usr/local/bin/composer && \
+RUN curl -sS https://getcomposer.org/download/latest-2.x/composer.phar -o /usr/local/bin/composer && \
     chmod +x /usr/local/bin/composer && \
     ln -sv usr/local/bin/composer2 usr/local/bin/composer
 
