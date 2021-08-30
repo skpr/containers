@@ -10,5 +10,5 @@ commandTests:
   - name:  "iconv"
     command: "php"
     args: ["-r", "iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', 'šěýčíéáýřčíšýíščř');"]
-    expectedOutput: [""]
+    excludedError: ['.*Wrong charset.*']
     exitCode: 0
