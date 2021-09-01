@@ -12,6 +12,8 @@ EXPOSE 9000
 
 USER skpr
 
+ENV LD_PRELOAD "/usr/lib/preloadable_libiconv.so php-fpm"
+
 # Configuration which can be overriden.
 # See /etc/php/php-fpm.conf
 ENV PHP_FPM_PORT=9000 \

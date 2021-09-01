@@ -6,3 +6,9 @@ commandTests:
     args: ["--help"]
     expectedError: ["Usage of docconv"]
     exitCode: 0
+
+  - name:  "iconv"
+    command: "php"
+    args: ["-r", "iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', 'šěýčíéáýřčíšýíščř');"]
+    excludedError: ['.*Wrong charset.*']
+    exitCode: 0
