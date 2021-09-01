@@ -4,6 +4,6 @@ FROM alpine:${ALPINE_VERSION}
 ARG ALPINE_VERSION=3.13
 ENV ALPINE_VERSION=${ALPINE_VERSION}
 
-RUN apk add util-linux
+RUN apk add util-linux ca-certificates
 
 RUN adduser -D -u 1000 skpr
