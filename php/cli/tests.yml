@@ -19,4 +19,5 @@ commandTests:
   - name: 'redis-cli'
     command: "redis-cli"
     args: ["--help"]
-    exitCode: 0
+    expectedOutput: ["Usage: redis-cli"]
+    exitCode: 1
