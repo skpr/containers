@@ -15,3 +15,8 @@ commandTests:
     command: "skpr-crond"
     args: ["--help"]
     exitCode: 0
+
+  - name: 'redis-cli'
+    command: "redis-cli"
+    args: ["--version"]
+    exitCode: 0

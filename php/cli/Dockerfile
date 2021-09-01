@@ -1,4 +1,8 @@
 ARG PHP_VERSION=7.2
+
+FROM skpr/base:1.x as redis-cli
+RUN apk add redis
+
 FROM skpr/php:${PHP_VERSION}-1.x
 ARG PHP_VERSION=7.2
 
@@ -7,6 +11,8 @@ ENV PHP_MEMORY_LIMIT=256M
 ENV PATH=$PATH:$EXTRA_PATH
 
 ENV PS1='\u@\h:\W \$ '
+
+COPY --from=redis-cli /usr/bin/redis-cli /usr/bin/redis-cli
 
 RUN apk --update --no-cache add \
       make \
