@@ -10,7 +10,7 @@ define pushimage
 	docker push $(IMAGE):$(1)-$(2)
 endef
 
-build: build12 build14
+build: build12 build14 build16
 
 lint:
 	hadolint Dockerfile
@@ -21,8 +21,12 @@ build12:
 build14:
 	$(call buildimage,3.13,14,1.x)
 
+build16:
+	$(call buildimage,3.14,16,1.x)
+
 push: build
 	$(call pushimage,12,1.x)
 	$(call pushimage,14,1.x)
+	$(call pushimage,16,1.x)
 
 .PHONY: *
