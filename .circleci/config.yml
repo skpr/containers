@@ -6,6 +6,7 @@ dirs: &dirs
   - nginx
   - node
   - mysql
+  - opensearch
 
 php_versions: &php_versions
   - "7.3"

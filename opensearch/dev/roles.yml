@@ -1,0 +1,20 @@
+_meta:
+  type: "roles"
+  config_version: 2
+
+writer:
+  cluster_permissions:
+    - "*"
+  index_permissions:
+    - index_patterns:
+        - "local_*"
+      allowed_actions:
+        - "*"
+
+reader:
+  index_permissions:
+    - index_patterns:
+        - "local_*"
+      allowed_actions:
+        - "read"
+        - "search"
