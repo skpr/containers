@@ -1,5 +1,7 @@
 FROM docker.io/opensearchproject/opensearch:latest
 
+ENV OPENSEARCH_JAVA_OPTS="-Xms512m -Xmx512m"
+
 # This image is intended for local development purposes only.
 ENV discovery.type="single-node"
 
@@ -7,10 +9,6 @@ ENV discovery.type="single-node"
 # development and we have found it results in a large portion of time spent trying
 # to work around self signed certificates.
 ENV plugins.security.ssl.http.enabled="false"
-
-# This allows us to configure the JVM.
-# https://discuss.opendistrocommunity.dev/t/es-java-opts-are-not-cosidered/410
-ADD jvm.options /usr/share/opensearch/config/jvm.options
 
 # Configuration to preload a set of credentials for local development:
 #
