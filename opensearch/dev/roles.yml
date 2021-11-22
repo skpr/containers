@@ -4,17 +4,25 @@ _meta:
 
 writer:
   cluster_permissions:
-    - "*"
+    - "cluster:monitor/*"
+    - "indices:data/write/bulk"
   index_permissions:
     - index_patterns:
         - "local_*"
       allowed_actions:
-        - "*"
+        - "indices:admin/create"
+        - "indices:admin/get"
+        - "indices:admin/mapping/put"
+        - "indices:data/read/search"
+        - "indices:data/write/bulk"
+        - "indices:data/write/bulk*"
+        - "indices:data/write/delete"
+        - "indices:data/write/index"
+        - "indices:data/write/update"
 
 reader:
   index_permissions:
     - index_patterns:
         - "local_*"
       allowed_actions:
-        - "read"
-        - "search"
+        - "indices:data/read/search"
