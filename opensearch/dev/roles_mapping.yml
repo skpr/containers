@@ -2,6 +2,12 @@ _meta:
   type: "rolesmapping"
   config_version: 2
 
+admin:
+  backend_roles:
+    - "admin"
+  users:
+    - "admin"
+
 writer:
   backend_roles:
     - "writer"
