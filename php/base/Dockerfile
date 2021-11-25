@@ -103,9 +103,10 @@ RUN curl -sSL https://s3.amazonaws.com/pnx-bins/docconv-d9ea05fbd50ab02d7a1d23af
 
 ADD conf.d/01_apcu.ini /etc/php/conf.d/01_apcu.ini
 ADD conf.d/50_overrides.ini /etc/php/conf.d/50_overrides.ini
+ADD conf.d/01_newrelic.ini /etc/php/conf.d/01_newrelic.ini
 
 RUN if [[ "$PHP_VERSION" != "8.1" ]]; then \
-    ADD conf.d/01_newrelic.ini /etc/php/conf.d/01_newrelic.ini; \
+    rm /etc/php/conf.d/01_newrelic.ini; \
 fi
 
 # Drush uses /tmp.
