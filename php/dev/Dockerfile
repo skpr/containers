@@ -4,8 +4,8 @@ FROM ${IMAGE}
 USER root
 
 # https://blog.blackfire.io/alpine-linux-support.html
-RUN PHP_VERSION=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") && \
-      if [[ "$PHP_VERSION" != "8.1" ]]; then \
+RUN PHP_VERSION=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") && \\
+      if [[ "$PHP_VERSION" != "81" ]]; then \
       curl -sSL -A "Docker" -o /tmp/blackfire-probe.tar.gz -D - -L -s https://blackfire.io/api/v1/releases/probe/php/alpine/amd64/$PHP_VERSION && \
       mkdir -p /tmp/blackfire && \
       tar zxpf /tmp/blackfire-probe.tar.gz -C /tmp/blackfire && \
@@ -17,7 +17,8 @@ COPY conf.d/01_blackfire.ini /etc/php/conf.d/01_blackfire.ini
 COPY conf.d/50_dev.ini /etc/php/conf.d/50_dev.ini
 
 RUN PHP_VERSION=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") && \
-    if [[ "$PHP_VERSION" != "8.1" ]]; then \
+    echo $PHP_VERSION && \
+    if [[ "$PHP_VERSION" != "81" ]]; then \
       rm /etc/php/conf.d/01_blackfire.ini; \
     fi
 
