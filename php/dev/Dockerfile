@@ -5,7 +5,6 @@ USER root
 
 # https://blog.blackfire.io/alpine-linux-support.html
 RUN PHP_VERSION=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") && \
-      echo
       if [[ "$PHP_VERSION" != "8.1" ]]; then \
       curl -sSL -A "Docker" -o /tmp/blackfire-probe.tar.gz -D - -L -s https://blackfire.io/api/v1/releases/probe/php/alpine/amd64/$PHP_VERSION && \
       mkdir -p /tmp/blackfire && \
