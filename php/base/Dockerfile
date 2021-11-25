@@ -69,7 +69,7 @@ RUN apk --update --no-cache add \
       libsodium
 
 # https://php.watch/versions/8.0/ext-json
-RUN if [ "$PHP_VERSION" != "8.0" ]; then \
+RUN if [ "$PHP_VERSION" != 8* ]; then \
     apk --update --no-cache add php${PHP_VERSION}-json; \
 fi
 
