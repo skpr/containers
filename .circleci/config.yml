@@ -1,5 +1,20 @@
 version: 2.1
 
+executors:
+  amd64:
+    machine:
+      image: ubuntu-2004:202101-01
+    resource_class: medium
+
+  arm64:
+    machine:
+      image: ubuntu-2004:202101-01
+    resource_class: arm.medium
+
+platforms: &platforms
+  - amd64
+  - arm64
+
 dirs: &dirs
   - clamav
   - kubebuilder
@@ -15,14 +30,15 @@ php_versions: &php_versions
 
 jobs:
   build:
-    docker:
-      - image: previousnext/container-builder:latest
     parameters:
+      executor:
+        type: string
       dir:
         type: string
         default: ""
+    machine: true
+    executor: << parameters.executor >>
     steps:
-      - setup_remote_docker
       - checkout
       - run:
           name: "Build: Base Image"
@@ -40,14 +56,15 @@ jobs:
             fi
 
   build_php:
-    docker:
-      - image: previousnext/container-builder:latest
     parameters:
+      executor:
+        type: string
       php_version:
         type: string
         default: ""
+    machine: true
+    executor: << parameters.executor >>
     steps:
-      - setup_remote_docker
       - checkout
       - run:
           name: "Build: Base Image"
@@ -65,9 +82,9 @@ jobs:
             fi
 
   build_solr:
-    docker:
-      - image: previousnext/container-builder:latest
     parameters:
+      executor:
+        type: string
       solr_image:
         type: string
         default: ""
@@ -77,8 +94,9 @@ jobs:
       search_api_solr_version:
         type: string
         default: ""
+    machine: true
+    executor: << parameters.executor >>
     steps:
-      - setup_remote_docker
       - checkout
       - run:
           name: "Build: Base Image"
@@ -101,11 +119,13 @@ workflows:
       - build:
           matrix:
             parameters:
+              executor: *platforms
               dir: *dirs
 
       - build_php:
           matrix:
             parameters:
+              executor: *platforms
               php_version: *php_versions
 
       - build_solr:
@@ -113,27 +133,42 @@ workflows:
           solr_image: 5.5-slim
           solr_version: 5.x
           search_api_solr_version: 1.x
+          matrix:
+            parameters:
+              executor: *platforms
+
       - build_solr:
           name: build_solr_7.x-3.x
           solr_image: 7.7-slim
           solr_version: 7.x
           search_api_solr_version: 3.x
+          matrix:
+            parameters:
+              executor: *platforms
+
       - build_solr:
           name: build_solr_7.x-4.x
           solr_image: 7.7-slim
           solr_version: 7.x
           search_api_solr_version: 4.x
+          matrix:
+            parameters:
+              executor: *platforms
 
   nightly:
     jobs:
       - build:
           matrix:
             parameters:
+              executor: *platforms
               dir: *dirs
+
       - build_php:
           matrix:
             parameters:
+              executor: *platforms
               php_version: *php_versions
+
     triggers:
       - schedule:
           # Scheduled build for 2am AEST nightly.
