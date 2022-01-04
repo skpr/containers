@@ -10,8 +10,6 @@ ENV PHP_MEMORY_LIMIT=128M
 
 ENV PHP_LOG_LIMIT=4096
 
-ENV SYSLOG_SYMLINK=/mnt/syslog/log
-
 ENV PATH "$PATH:/data/bin"
 
 # https://github.com/moby/moby/issues/20295
