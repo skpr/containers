@@ -67,11 +67,13 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "Install: Container Structure Tests"
+          name: "Install: Container"
           command: |
             curl -LO https://storage.googleapis.com/container-structure-test/v1.11.0/container-structure-test-linux-<< parameters.executor >> && \
-            mv container-structure-test-linux-<< parameters.executor >> /usr/local/bin//container-structure-test && \
-            chmod +x /usr/local/bin/container-structure-test
+            mv container-structure-test-linux-<< parameters.executor >> container-structure-test && \
+            chmod +x container-structure-test && \
+            sudo mv container-structure-test /usr/local/bin/
+
       - run:
           name: "Build: Base Image"
           command: |
