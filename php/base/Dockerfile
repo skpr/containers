@@ -14,17 +14,18 @@ ENV SYSLOG_SYMLINK=/mnt/syslog/log
 
 ENV PATH "$PATH:/data/bin"
 
-ENV LD_PRELOAD "/usr/lib/preloadable_libiconv.so php"
-
 # https://github.com/moby/moby/issues/20295
 RUN mkdir /data && \
     chown -R skpr:skpr /data
 
 WORKDIR /data
 
-RUN apk add --no-cache curl gnu-libiconv && \
+RUN apk add --no-cache curl && \
     curl -sSL https://packages.skpr.io/php-alpine/skpr.rsa.pub -o /etc/apk/keys/skpr.rsa.pub && \
     echo "https://packages.skpr.io/php-alpine/${ALPINE_VERSION}/php${PHP_VERSION}" >> /etc/apk/repositories
+
+RUN apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community/ gnu-libiconv
+ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
 
 RUN apk --update --no-cache add \
       php${PHP_VERSION} \
