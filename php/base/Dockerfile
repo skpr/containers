@@ -94,9 +94,8 @@ RUN if [[ "$PHP_VERSION" != "8.1" ]]; then \
     rm -f /etc/php/conf.d/newrelic.ini; \
 fi
 
-RUN export SKPRMAIL_VERSION=0.0.8 && \
-    curl -sSL https://github.com/skpr/mail/releases/download/v${SKPRMAIL_VERSION}/skprmail_${SKPRMAIL_VERSION}_linux_amd64 -o /usr/local/bin/skprmail && \
-    chmod +rx /usr/local/bin/skprmail; \
+RUN curl -sSL https://github.com/skpr/mail/releases/download/v0.0.8/skprmail_0.0.8_linux_amd64 -o /usr/local/bin/skprmail && \
+    chmod +rx /usr/local/bin/skprmail
 
 # Built using an updated build approach in this fork: https://github.com/skpr/docconv
 RUN curl -sSL https://s3.amazonaws.com/pnx-bins/docconv-d9ea05fbd50ab02d7a1d23af7ecb11d37c3b68be-${ALPINE_VERSION} -o /usr/local/bin/docconv && \
