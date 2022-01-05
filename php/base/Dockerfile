@@ -73,14 +73,6 @@ RUN if [[ "$PHP_VERSION" != "8.0" && "$PHP_VERSION" != "8.1" ]]; then \
     apk --update --no-cache add php${PHP_VERSION}-json; \
 fi
 
-# @todo, Remove once 7.3 is depreciated.
-RUN if [ "$PHP_VERSION" == "7.3" ]; then \
-    mv /etc/php/${PHP_VERSION}/* /etc/php/ && \
-    rm -fR /etc/php/${PHP_VERSION} && \
-    ln -sf /etc/php /etc/php/${PHP_VERSION} && \
-    ln -sf /etc/php /etc/php7; \
-fi
-
 # New Relic - https://docs.newrelic.com/docs/release-notes/agent-release-notes/php-release-notes
 
 RUN if [[ "$PHP_VERSION" != "8.1" ]]; then \
