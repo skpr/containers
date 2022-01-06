@@ -24,7 +24,7 @@ RUN apk add --no-cache curl && \
     curl -sSL https://packages.skpr.io/php-alpine/skpr.rsa.pub -o /etc/apk/keys/skpr.rsa.pub && \
     echo "https://packages.skpr.io/php-alpine/${ALPINE_VERSION}/php${PHP_VERSION}" >> /etc/apk/repositories
 
-RUN apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community/ gnu-libiconv
+RUN apk add --no-cache --repository https://packages.skpr.io/php-alpine/${ALPINE_VERSION}/php${PHP_VERSION} gnu-libiconv=1.15-r100
 ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
 
 RUN apk --update --no-cache add \
