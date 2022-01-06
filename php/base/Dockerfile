@@ -1,3 +1,6 @@
+ARG ALPINE_VERSION=3.14
+FROM docker.io/skpr/docconv:alpine${ALPINE_VERSION} as docconv
+
 FROM skpr/base:1.x
 
 ARG PHP_VERSION=7.2
@@ -89,7 +92,7 @@ RUN curl -sSL https://github.com/skpr/mail/releases/download/v0.0.6/skprmail_lin
     chmod +rx /usr/local/bin/skprmail
 
 # Built using an updated build approach in this fork: https://github.com/skpr/docconv
-COPY --from=docker.io/skpr/docconv:alpine${ALPINE_VERSION} /usr/local/bin/docconv /usr/local/bin/docconv
+COPY --from=docconv /usr/local/bin/docconv /usr/local/bin/docconv
 
 ADD conf.d/01_apcu.ini /etc/php/conf.d/01_apcu.ini
 ADD conf.d/50_overrides.ini /etc/php/conf.d/50_overrides.ini
