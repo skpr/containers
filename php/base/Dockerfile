@@ -89,8 +89,7 @@ RUN curl -sSL https://github.com/skpr/mail/releases/download/v0.0.6/skprmail_lin
     chmod +rx /usr/local/bin/skprmail
 
 # Built using an updated build approach in this fork: https://github.com/skpr/docconv
-RUN curl -sSL https://s3.amazonaws.com/pnx-bins/docconv-${ALPINE_VERSION} -o /usr/local/bin/docconv && \
-    chmod +rx /usr/local/bin/docconv
+COPY --from=docker.io/skpr/docconv:alpine${ALPINE_VERSION} /usr/local/bin/docconv /usr/local/bin/docconv
 
 ADD conf.d/01_apcu.ini /etc/php/conf.d/01_apcu.ini
 ADD conf.d/50_overrides.ini /etc/php/conf.d/50_overrides.ini
