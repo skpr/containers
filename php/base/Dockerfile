@@ -3,6 +3,7 @@ FROM docker.io/skpr/docconv:alpine${ALPINE_VERSION} as docconv
 
 FROM skpr/base:1.x
 
+ARG ARCH=amd64
 ARG PHP_VERSION=7.2
 
 ENV NEW_RELIC_ENABLED=false
@@ -88,7 +89,7 @@ RUN if [[ "$PHP_VERSION" != "8.1" ]]; then \
     rm -f /etc/php/conf.d/newrelic.ini; \
 fi
 
-RUN curl -sSL https://github.com/skpr/mail/releases/download/v0.0.6/skprmail_linux_amd64 -o /usr/local/bin/skprmail && \
+RUN curl -sSL https://github.com/skpr/mail/releases/download/v0.0.9/skprmail_linux_${ARCH} -o /usr/local/bin/skprmail && \
     chmod +rx /usr/local/bin/skprmail
 
 # Built using an updated build approach in this fork: https://github.com/skpr/docconv

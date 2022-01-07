@@ -4,6 +4,8 @@ FROM skpr/base:1.x as redis-cli
 RUN apk add redis
 
 FROM skpr/php:${PHP_VERSION}-1.x
+
+ARG ARCH=amd64
 ARG PHP_VERSION=7.2
 
 ENV PHP_MEMORY_LIMIT=256M
@@ -33,7 +35,7 @@ RUN curl -sS https://getcomposer.org/download/latest-2.x/composer.phar -o /usr/l
     ln -sv /usr/local/bin/composer /usr/local/bin/composer2
 
 # A lightweight crond for local development environments. Also leveraged the Skpr Preview environments.
-RUN curl -sSL https://github.com/skpr/crond/releases/download/v0.0.1/skpr-crond_0.0.1_linux_amd64.tar.gz -o /tmp/skpr-crond.tar.gz && \
+RUN curl -sSL https://github.com/skpr/crond/releases/download/v0.0.1/skpr-crond_0.0.2_linux_${ARCH}.tar.gz -o /tmp/skpr-crond.tar.gz && \
     tar -zxvf /tmp/skpr-crond.tar.gz skpr-crond && \
     mv skpr-crond /usr/local/bin/skpr-crond && \
     rm -f /tmp/skpr-crond.tar.gz

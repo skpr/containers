@@ -1,13 +1,14 @@
 #!/usr/bin/make -f
 
 REGISTRY=skpr/php
+ARCH=amd64
 NODE_VERSION=10-1.x
 
 build: validate
 	# Building production images.
-	docker build --no-cache --build-arg PHP_VERSION=$(PHP_VERSION) -t $(REGISTRY):$(PHP_VERSION)-1.x base
-	docker build --no-cache --build-arg PHP_VERSION=$(PHP_VERSION) -t $(REGISTRY)-fpm:$(PHP_VERSION)-1.x fpm
-	docker build --no-cache --build-arg PHP_VERSION=$(PHP_VERSION) -t $(REGISTRY)-cli:$(PHP_VERSION)-1.x cli
+	docker build --no-cache --build-arg=ARCH=$(ARCH) --build-arg PHP_VERSION=$(PHP_VERSION) -t $(REGISTRY):$(PHP_VERSION)-1.x base
+	docker build --no-cache --build-arg=ARCH=$(ARCH) --build-arg PHP_VERSION=$(PHP_VERSION) -t $(REGISTRY)-fpm:$(PHP_VERSION)-1.x fpm
+	docker build --no-cache --build-arg=ARCH=$(ARCH) --build-arg PHP_VERSION=$(PHP_VERSION) -t $(REGISTRY)-cli:$(PHP_VERSION)-1.x cli
 	
 	# Testing production images.
 	container-structure-test test --image $(REGISTRY):$(PHP_VERSION)-1.x --config base/tests.yml
@@ -15,12 +16,12 @@ build: validate
 	container-structure-test test --image $(REGISTRY)-cli:$(PHP_VERSION)-1.x --config cli/tests.yml
 	
 	# Building dev images.
-	docker build --no-cache --build-arg IMAGE=$(REGISTRY)-fpm:$(PHP_VERSION)-1.x -t $(REGISTRY)-fpm:$(PHP_VERSION)-1.x-dev dev
-	docker build --no-cache --build-arg IMAGE=$(REGISTRY)-cli:$(PHP_VERSION)-1.x -t $(REGISTRY)-cli:$(PHP_VERSION)-1.x-dev dev
+	docker build --no-cache --build-arg=ARCH=$(ARCH) --build-arg IMAGE=$(REGISTRY)-fpm:$(PHP_VERSION)-1.x -t $(REGISTRY)-fpm:$(PHP_VERSION)-1.x-dev dev
+	docker build --no-cache --build-arg=ARCH=$(ARCH) --build-arg IMAGE=$(REGISTRY)-cli:$(PHP_VERSION)-1.x -t $(REGISTRY)-cli:$(PHP_VERSION)-1.x-dev dev
 	
 	# Building Xdebug images.
-	docker build --no-cache --build-arg PHP_VERSION=$(PHP_VERSION) --build-arg IMAGE=$(REGISTRY)-fpm:$(PHP_VERSION)-1.x-dev -t $(REGISTRY)-fpm:$(PHP_VERSION)-1.x-xdebug xdebug
-	docker build --no-cache --build-arg PHP_VERSION=$(PHP_VERSION) --build-arg IMAGE=$(REGISTRY)-cli:$(PHP_VERSION)-1.x-dev -t $(REGISTRY)-cli:$(PHP_VERSION)-1.x-xdebug xdebug
+	docker build --no-cache --build-arg=ARCH=$(ARCH) --build-arg PHP_VERSION=$(PHP_VERSION) --build-arg IMAGE=$(REGISTRY)-fpm:$(PHP_VERSION)-1.x-dev -t $(REGISTRY)-fpm:$(PHP_VERSION)-1.x-xdebug xdebug
+	docker build --no-cache --build-arg=ARCH=$(ARCH) --build-arg PHP_VERSION=$(PHP_VERSION) --build-arg IMAGE=$(REGISTRY)-cli:$(PHP_VERSION)-1.x-dev -t $(REGISTRY)-cli:$(PHP_VERSION)-1.x-xdebug xdebug
 	
 	# Building CircleCI images.
 	docker build --no-cache --build-arg PHP_VERSION=$(PHP_VERSION) --build-arg NODE_VERSION=$(NODE_VERSION) -t $(REGISTRY)-circleci:$(PHP_VERSION)-1.x circleci
