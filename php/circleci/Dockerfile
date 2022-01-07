@@ -4,6 +4,8 @@ FROM node:${NODE_VERSION}-alpine as node
 
 ARG PHP_VERSION=7.2
 FROM skpr/php-cli:${PHP_VERSION}-1.x
+
+ARG ARCH=amd64
 ARG PHP_VERSION=7.2
 
 USER root
