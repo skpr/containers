@@ -1,6 +1,6 @@
-ARG NODE_VERSION=10-1.x
+ARG NODE_VERSION=10
 ARG PHP_VERSION=7.2
-FROM skpr/node:${NODE_VERSION} as node
+FROM node:${NODE_VERSION}-alpine as node
 
 ARG PHP_VERSION=7.2
 FROM skpr/php-cli:${PHP_VERSION}-1.x
@@ -75,14 +75,14 @@ RUN curl -sSL http://bins.skpr.io/hub-latest -o /usr/local/bin/hub && \
 
 # Install Github CLI
 RUN export GITHUB_CLI_VERSION=1.10.2 && \
-    export GITHUB_CLI_DIST=gh_${GITHUB_CLI_VERSION}_linux_amd64 && \
+    export GITHUB_CLI_DIST=gh_${GITHUB_CLI_VERSION}_linux_${ARCH} && \
     curl -sSL https://github.com/cli/cli/releases/download/v${GITHUB_CLI_VERSION}/${GITHUB_CLI_DIST}.tar.gz -o /tmp/${GITHUB_CLI_DIST}.tar.gz && \
     tar xf /tmp/${GITHUB_CLI_DIST}.tar.gz -C /tmp && \
     mv /tmp/${GITHUB_CLI_DIST}/bin/gh /usr/local/bin/ && \
     chmod +rx /usr/local/bin/gh
 
 # Install PHP Local Security Checker
-RUN curl -sSL https://github.com/fabpot/local-php-security-checker/releases/download/v1.0.0/local-php-security-checker_1.0.0_linux_amd64 -o /usr/local/bin/local-php-security-checker && \
+RUN curl -sSL https://github.com/fabpot/local-php-security-checker/releases/download/v1.0.0/local-php-security-checker_1.0.0_linux_${ARCH} -o /usr/local/bin/local-php-security-checker && \
   chmod +rx /usr/local/bin/local-php-security-checker
 
 # We need to create and chown these directory for
