@@ -113,7 +113,7 @@ workflows:
 
       - build:
           name: kubebuilder
-          image: kubebuiler
+          image: kubebuilder
           matrix:
             parameters:
               executor: *platforms
