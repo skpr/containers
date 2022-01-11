@@ -1,9 +1,9 @@
-ARG PHP_VERSION=7.2
+ARG IMAGE=skpr/php:7.2-1.x
 
 FROM skpr/base:1.x as redis-cli
 RUN apk add redis
 
-FROM skpr/php:${PHP_VERSION}-1.x
+FROM ${IMAGE}
 
 ARG ARCH=amd64
 ARG PHP_VERSION=7.2

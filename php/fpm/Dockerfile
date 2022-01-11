@@ -1,5 +1,5 @@
-ARG PHP_VERSION=7.2
-FROM skpr/php:${PHP_VERSION}-1.x
+ARG IMAGE=skpr/php:7.2-1.x
+FROM ${IMAGE}
 ARG PHP_VERSION=7.2
 
 RUN apk --update --no-cache add \

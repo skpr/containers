@@ -18,8 +18,8 @@ IMAGE_CLI_XDEBUG=$(IMAGE_CLI)-xdebug
 build: validate
 	# Building production images.
 	docker build --no-cache $(COMMON_BUILD_ARGS) -t $(IMAGE_BASE) base
-	docker build --no-cache $(COMMON_BUILD_ARGS) -t $(IMAGE_FPM) fpm
-	docker build --no-cache $(COMMON_BUILD_ARGS) -t $(IMAGE_CLI) cli
+	docker build --no-cache $(COMMON_BUILD_ARGS) --build-arg IMAGE=$(IMAGE_BASE) -t $(IMAGE_FPM) fpm
+	docker build --no-cache $(COMMON_BUILD_ARGS) --build-arg IMAGE=$(IMAGE_BASE) -t $(IMAGE_CLI) cli
 	
 	# Testing production images.
 	container-structure-test test --image $(IMAGE_BASE) --config base/tests.yml
