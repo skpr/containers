@@ -16,6 +16,7 @@ platforms: &platforms
   - arm64
 
 dirs: &dirs
+  - php
   - clamav
   - kubebuilder
   - nginx
@@ -28,6 +29,10 @@ php_versions: &php_versions
   - "8.0"
   - "8.1"
 
+solr_search_api_versions: &solr_search_api_versions
+  - 3.x
+  - 4.x
+
 jobs:
   build:
     parameters:
@@ -35,31 +40,7 @@ jobs:
         type: string
       dir:
         type: string
-        default: ""
-    machine: true
-    executor: << parameters.executor >>
-    steps:
-      - checkout
-      - run:
-          name: "Build: Base Image"
-          command: |
-            cd base
-            make build
-      - run:
-          name: Build, Test and Release
-          command: |
-            cd << parameters.dir >>
-            make build
-            if [ "$CIRCLE_BRANCH" == "master" ]; then
-              docker login -u $DOCKER_USER -p $DOCKER_PASS
-              make push
-            fi
-
-  build_php:
-    parameters:
-      executor:
-        type: string
-      php_version:
+      version:
         type: string
         default: ""
     machine: true
@@ -73,7 +54,6 @@ jobs:
             mv container-structure-test-linux-<< parameters.executor >> container-structure-test && \
             chmod +x container-structure-test && \
             sudo mv container-structure-test /usr/local/bin/
-
       - run:
           name: "Build: Base Image"
           command: |
@@ -82,11 +62,11 @@ jobs:
       - run:
           name: Build, Test and Release
           command: |
-            cd php
-            make build ARCH=<< parameters.executor >> PHP_VERSION=<< parameters.php_version >>
+            cd << parameters.dir >>
+            make build REGISTRY=skpr/php-<< parameters.executor >> ARCH=<< parameters.executor >> VERSION=<< parameters.version >>
             if [ "$CIRCLE_BRANCH" == "master" ]; then
               docker login -u $DOCKER_USER -p $DOCKER_PASS
-              make push PHP_VERSION=<< parameters.php_version >>
+              make push REGISTRY=skpr/php-<< parameters.executor >> VERSION=<< parameters.version >>
             fi
 
   build_solr:
@@ -130,11 +110,11 @@ workflows:
               executor: *platforms
               dir: *dirs
 
-      - build_php:
+      - build:
           matrix:
             parameters:
               executor: *platforms
-              php_version: *php_versions
+              version: *php_versions
 
       - build_solr:
           name: build_solr_5.x-1.x
