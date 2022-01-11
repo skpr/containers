@@ -91,20 +91,6 @@ workflows:
             parameters:
               executor: *platforms
 
-  nightly:
-    jobs:
-      - build:
-          matrix:
-            parameters:
-              executor: *platforms
-              dir: *dirs
-
-      - build_php:
-          matrix:
-            parameters:
-              executor: *platforms
-              php_version: *php_versions
-
     triggers:
       - schedule:
           # Scheduled build for 2am AEST nightly.
