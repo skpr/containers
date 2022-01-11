@@ -94,6 +94,7 @@ workflows:
   nightly:
     jobs:
       - build:
+          name: php
           image: php
           matrix:
             parameters:
@@ -104,36 +105,42 @@ workflows:
                 - "8.1"
 
       - build:
+          name: clamav
           image: clamav
           matrix:
             parameters:
               executor: *platforms
 
       - build:
+          name: kubebuilder
           image: kubebuiler
           matrix:
             parameters:
               executor: *platforms
 
       - build:
+          name: nginx
           image: nginx
           matrix:
             parameters:
               executor: *platforms
 
       - build:
+          name: node
           image: node
           matrix:
             parameters:
               executor: *platforms
 
       - build:
+          name: mysql
           image: mysql
           matrix:
             parameters:
               executor: *platforms
 
       - build:
+          name: opensearch
           image: opensearch
           matrix:
             parameters:
