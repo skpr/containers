@@ -15,106 +15,54 @@ platforms: &platforms
   - amd64
   - arm64
 
-dirs: &dirs
-  - php
-  - clamav
-  - kubebuilder
-  - nginx
-  - node
-  - mysql
-  - opensearch
-
-php_versions: &php_versions
-  - "7.4"
-  - "8.0"
-  - "8.1"
-
-solr_search_api_versions: &solr_search_api_versions
-  - 3.x
-  - 4.x
-
-jobs:
-  build:
-    parameters:
-      executor:
-        type: string
-      dir:
-        type: string
-      version:
-        type: string
-        default: ""
-    machine: true
-    executor: << parameters.executor >>
-    steps:
-      - checkout
-      - run:
-          name: "Install: Container Structure Tests"
-          command: |
-            curl -LO https://storage.googleapis.com/container-structure-test/v1.11.0/container-structure-test-linux-<< parameters.executor >> && \
-            mv container-structure-test-linux-<< parameters.executor >> container-structure-test && \
-            chmod +x container-structure-test && \
-            sudo mv container-structure-test /usr/local/bin/
-      - run:
-          name: "Build: Base Image"
-          command: |
-            cd base
-            make build
-      - run:
-          name: Build, Test and Release
-          command: |
-            cd << parameters.dir >>
-            make build REGISTRY=skpr/php-<< parameters.executor >> ARCH=<< parameters.executor >> VERSION=<< parameters.version >>
-            if [ "$CIRCLE_BRANCH" == "master" ]; then
-              docker login -u $DOCKER_USER -p $DOCKER_PASS
-              make push REGISTRY=skpr/php-<< parameters.executor >> VERSION=<< parameters.version >>
-            fi
-
-  build_solr:
-    parameters:
-      executor:
-        type: string
-      solr_image:
-        type: string
-        default: ""
-      solr_version:
-        type: string
-        default: ""
-      search_api_solr_version:
-        type: string
-        default: ""
-    machine: true
-    executor: << parameters.executor >>
-    steps:
-      - checkout
-      - run:
-          name: "Build: Base Image"
-          command: |
-            cd base
-            make build
-      - run:
-          name: Build, Test and Release
-          command: |
-            cd solr
-            make build SOLR_IMAGE=<< parameters.solr_image >> SOLR_VERSION=<< parameters.solr_version >> SEARCH_API_SOLR_VERSION=<< parameters.search_api_solr_version >>
-            if [ "$CIRCLE_BRANCH" == "master" ]; then
-              docker login -u $DOCKER_USER -p $DOCKER_PASS
-              make push SOLR_IMAGE=<< parameters.solr_image >> SOLR_VERSION=<< parameters.solr_version >> SEARCH_API_SOLR_VERSION=<< parameters.search_api_solr_version >>
-            fi
-
 workflows:
   build:
     jobs:
       - build:
+          image: php
           matrix:
             parameters:
               executor: *platforms
-              dir: *dirs
+              version:
+                - "7.4"
+                - "8.0"
+                - "8.1"
 
       - build:
+          image: clamav
           matrix:
             parameters:
               executor: *platforms
-              version: *php_versions
+
+      - build:
+          image: kubebuiler
+          matrix:
+            parameters:
+              executor: *platforms
+
+      - build:
+          image: nginx
+          matrix:
+            parameters:
+              executor: *platforms
+
+      - build:
+          image: node
+          matrix:
+            parameters:
+              executor: *platforms
+
+      - build:
+          image: mysql
+          matrix:
+            parameters:
+              executor: *platforms
+
+      - build:
+          image: opensearch
+          matrix:
+            parameters:
+              executor: *platforms
 
       - build_solr:
           name: build_solr_5.x-1.x
@@ -165,3 +113,72 @@ workflows:
             branches:
               only:
                 - master
+
+jobs:
+  build:
+    parameters:
+      executor:
+        type: string
+      image:
+        type: string
+      version:
+        type: string
+        default: ""
+    machine: true
+    executor: << parameters.executor >>
+    steps:
+      - checkout
+      - run:
+          name: "Install: Container Structure Tests"
+          command: |
+            curl -LO https://storage.googleapis.com/container-structure-test/v1.11.0/container-structure-test-linux-<< parameters.executor >> && \
+            mv container-structure-test-linux-<< parameters.executor >> container-structure-test && \
+            chmod +x container-structure-test && \
+            sudo mv container-structure-test /usr/local/bin/
+      - run:
+          name: "Build: Base Image"
+          command: |
+            cd base
+            make build
+      - run:
+          name: Build, Test and Release
+          command: |
+            cd << parameters.image >>
+            make build REGISTRY=skpr/php-<< parameters.executor >> ARCH=<< parameters.executor >> VERSION=<< parameters.version >>
+            if [ "$CIRCLE_BRANCH" == "master" ]; then
+              docker login -u $DOCKER_USER -p $DOCKER_PASS
+              make push REGISTRY=skpr/php-<< parameters.executor >> VERSION=<< parameters.version >>
+            fi
+
+  build_solr:
+    parameters:
+      executor:
+        type: string
+      solr_image:
+        type: string
+        default: ""
+      solr_version:
+        type: string
+        default: ""
+      search_api_solr_version:
+        type: string
+        default: ""
+    machine: true
+    executor: << parameters.executor >>
+    steps:
+      - checkout
+      - run:
+          name: "Build: Base Image"
+          command: |
+            cd base
+            make build
+      - run:
+          name: Build, Test and Release
+          command: |
+            cd solr
+            make build SOLR_IMAGE=<< parameters.solr_image >> SOLR_VERSION=<< parameters.solr_version >> SEARCH_API_SOLR_VERSION=<< parameters.search_api_solr_version >>
+            if [ "$CIRCLE_BRANCH" == "master" ]; then
+              docker login -u $DOCKER_USER -p $DOCKER_PASS
+              make push SOLR_IMAGE=<< parameters.solr_image >> SOLR_VERSION=<< parameters.solr_version >> SEARCH_API_SOLR_VERSION=<< parameters.search_api_solr_version >>
+            fi
+
