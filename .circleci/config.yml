@@ -91,6 +91,7 @@ workflows:
             parameters:
               executor: *platforms
 
+  nightly:
     jobs:
       - build:
           image: php
