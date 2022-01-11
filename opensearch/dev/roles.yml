@@ -21,6 +21,7 @@ writer:
       allowed_actions:
         - "indices:admin/create"
         - "indices:admin/get"
+        - "indices:admin/delete"
         - "indices:admin/mapping/put"
         - "indices:data/read/search"
         - "indices:data/write/bulk"
