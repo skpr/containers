@@ -91,6 +91,80 @@ workflows:
             parameters:
               executor: *platforms
 
+    jobs:
+      - build:
+          image: php
+          matrix:
+            parameters:
+              executor: *platforms
+              version:
+                - "7.4"
+                - "8.0"
+                - "8.1"
+
+      - build:
+          image: clamav
+          matrix:
+            parameters:
+              executor: *platforms
+
+      - build:
+          image: kubebuiler
+          matrix:
+            parameters:
+              executor: *platforms
+
+      - build:
+          image: nginx
+          matrix:
+            parameters:
+              executor: *platforms
+
+      - build:
+          image: node
+          matrix:
+            parameters:
+              executor: *platforms
+
+      - build:
+          image: mysql
+          matrix:
+            parameters:
+              executor: *platforms
+
+      - build:
+          image: opensearch
+          matrix:
+            parameters:
+              executor: *platforms
+
+      - build_solr:
+          name: build_solr_5.x-1.x
+          solr_image: 5.5-slim
+          solr_version: 5.x
+          search_api_solr_version: 1.x
+          matrix:
+            parameters:
+              executor: *platforms
+
+      - build_solr:
+          name: build_solr_7.x-3.x
+          solr_image: 7.7-slim
+          solr_version: 7.x
+          search_api_solr_version: 3.x
+          matrix:
+            parameters:
+              executor: *platforms
+
+      - build_solr:
+          name: build_solr_7.x-4.x
+          solr_image: 7.7-slim
+          solr_version: 7.x
+          search_api_solr_version: 4.x
+          matrix:
+            parameters:
+              executor: *platforms
+
     triggers:
       - schedule:
           # Scheduled build for 2am AEST nightly.
