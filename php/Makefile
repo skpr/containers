@@ -35,9 +35,9 @@ build: validate
 	docker build --no-cache $(COMMON_BUILD_ARGS) --build-arg IMAGE=$(IMAGE_CLI_DEV) -t $(IMAGE_CLI_XDEBUG) xdebug
 	
 	# Building CircleCI images.
-	docker build --no-cache $(COMMON_BUILD_ARGS) --build-arg NODE_VERSION=10 -t $(REGISTRY)-circleci:$(VERSION)-1.x circleci
+	docker build --no-cache $(COMMON_BUILD_ARGS) --build-arg IMAGE=$(IMAGE_CLI) --build-arg NODE_VERSION=10 -t $(REGISTRY)-circleci:$(VERSION)-1.x circleci
 	# 1.x version is Node 10, 2.x is Node 14.
-	docker build --no-cache $(COMMON_BUILD_ARGS) --build-arg NODE_VERSION=14 -t $(REGISTRY)-circleci:$(VERSION)-2.x circleci
+	docker build --no-cache $(COMMON_BUILD_ARGS) --build-arg IMAGE=$(IMAGE_CLI) --build-arg NODE_VERSION=14 -t $(REGISTRY)-circleci:$(VERSION)-2.x circleci
 
 push: validate
 	# Pushing production images
