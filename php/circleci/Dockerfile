@@ -1,8 +1,9 @@
+ARG IMAGE=skpr/php-cli:8.0-1.x
 ARG NODE_VERSION=10
 ARG PHP_VERSION=7.2
+
 FROM node:${NODE_VERSION}-alpine as node
 
-ARG IMAGE=skpr/php-cli:8.0-1.x
 FROM ${IMAGE}
 
 ARG ARCH=amd64

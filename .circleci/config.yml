@@ -35,7 +35,7 @@ workflows:
               executor: *platforms
 
       - build:
-          image: kubebuiler
+          image: kubebuilder
           matrix:
             parameters:
               executor: *platforms
