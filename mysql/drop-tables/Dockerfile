@@ -9,4 +9,4 @@ RUN chmod +x /usr/local/bin/entrypoint
 
 USER skpr
 
-ENTRYPOINT /usr/local/bin/entrypoint
+ENTRYPOINT ["/usr/local/bin/entrypoint"]
