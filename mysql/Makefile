@@ -10,9 +10,9 @@ build:
 
 push:
 	$(call pushimage,drop-tables)
-    $(call pushimage,import)
+	$(call pushimage,import)
 	# @todo, The drop-tables image will be emancipated from the base image in a future release.
-    docker push $(REGISTRY):1.x
+	docker push $(REGISTRY):1.x
 
 define buildimage
 	DOCKER_BUILDKIT=1 docker build -t $(REGISTRY)-$(1):1.x $(1)
