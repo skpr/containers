@@ -5,7 +5,7 @@ commandTests:
     command: "sh"
     args: ["-c", "mkdir -p /data/app && php-fpm --test"]
     excludedOutput: [".*Unable to load dynamic library.*"]
-  - name: 'check php configuration'
+  - name: 'check for unloaded modules'
     command: "sh"
-    args: ["-c", "php -r 'phpinfo();'"]
-    excludedOutput: [".*Unable to load dynamic library.*"]
+    args: ["-c", "php -r 'phpinfo();' | grep 'Unable to load dynamic library'"]
+    exitCode: 1
