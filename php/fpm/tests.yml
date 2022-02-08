@@ -2,8 +2,8 @@ schemaVersion: '2.0.0'
 
 commandTests:
   - name:  "check for unloaded modules"
-    command: "sh"
-    args: ["-c", "/usr/sbin/php-fpm --test"]
+    command: "/usr/sbin/php-fpm"
+    args: ["--test"]
     excludedError: [".*Unable to load dynamic library.*"]
   - name: 'check configuration'
     command: "sh"
