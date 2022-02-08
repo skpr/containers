@@ -4,4 +4,4 @@ commandTests:
   - name: 'check configuration'
     command: "sh"
     args: ["-c", "mkdir -p /data/app && php-fpm --test"]
-    excludedError: [".*Unable to load dynamic library.*"]
+    excludedOutput: [".*Unable to load dynamic library.*"]
