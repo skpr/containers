@@ -4,3 +4,7 @@ commandTests:
   - name: 'check configuration'
     command: "sh"
     args: ["-c", "mkdir /data/app && php-fpm --test"]
+  - name:  "check for unloaded modules"
+    command: "sh"
+    args: ["-c", "/usr/sbin/php-fpm", "--test"]
+    excludedOutput: [".*Unable to load dynamic library.*"]
