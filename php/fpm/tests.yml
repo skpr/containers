@@ -7,4 +7,4 @@ commandTests:
 
   - name: 'check for unloaded modules'
     command: "sh"
-    args: ["-c", "php -i | grep 'Unable to load dynamic library' && false || true"]
+    args: ["-c", "php", "-i", "|", "grep", "'FAKLE'", "&&", "false", "||", "true"]
