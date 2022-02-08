@@ -6,7 +6,7 @@ commandTests:
     args: ["-c", "mkdir -p /data/app && php-fpm --test"]
     excludedOutput: [".*Unable to load dynamic library.*"]
   - name: 'check for unloaded modules'
-    command: "shell"
+    command: "sh"
     args:
       - -c
       - |
