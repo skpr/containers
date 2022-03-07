@@ -82,8 +82,7 @@ RUN export NR_INSTALL_SILENT=true && \
     export NR_FILENAME=newrelic-php5-${NR_VERSION}-linux-musl && \
     curl -sSL https://download.newrelic.com/php_agent/archive/${NR_VERSION}/${NR_FILENAME}.tar.gz | gzip -dc | tar xf - && \
     cd ${NR_FILENAME} && ./newrelic-install install && \
-    rm -fR /data/${NR_FILENAME} && \
-    rm -f /etc/php/conf.d/newrelic.ini;
+    rm -fR /data/${NR_FILENAME};
 
 RUN curl -sSL https://github.com/skpr/mail/releases/download/v0.0.6/skprmail_linux_amd64 -o /usr/local/bin/skprmail && \
     chmod +rx /usr/local/bin/skprmail
