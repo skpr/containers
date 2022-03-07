@@ -70,22 +70,20 @@ RUN apk --update --no-cache add \
       libsodium
 
 # https://php.watch/versions/8.0/ext-json
-RUN if [[ "$PHP_VERSION" != "8.0" && "$PHP_VERSION" != "8.1" ]]; then \
+RUN if [[ "$PHP_VERSION" != "8.0" ]]; then \
     apk --update --no-cache add php${PHP_VERSION}-json; \
 fi
 
 # New Relic - https://docs.newrelic.com/docs/release-notes/agent-release-notes/php-release-notes
 
-RUN if [[ "$PHP_VERSION" != "8.1" ]]; then \
-    export NR_INSTALL_SILENT=true && \
+RUN export NR_INSTALL_SILENT=true && \
     export NR_INSTALL_USE_CP_NOT_LN=true && \
     export NR_VERSION=9.18.1.303 && \
     export NR_FILENAME=newrelic-php5-${NR_VERSION}-linux-musl && \
     curl -sSL https://download.newrelic.com/php_agent/archive/${NR_VERSION}/${NR_FILENAME}.tar.gz | gzip -dc | tar xf - && \
     cd ${NR_FILENAME} && ./newrelic-install install && \
     rm -fR /data/${NR_FILENAME} && \
-    rm -f /etc/php/conf.d/newrelic.ini; \
-fi
+    rm -f /etc/php/conf.d/newrelic.ini
 
 RUN curl -sSL https://github.com/skpr/mail/releases/download/v0.0.6/skprmail_linux_amd64 -o /usr/local/bin/skprmail && \
     chmod +rx /usr/local/bin/skprmail
@@ -97,10 +95,6 @@ RUN curl -sSL https://s3.amazonaws.com/pnx-bins/docconv-${ALPINE_VERSION} -o /us
 ADD conf.d/01_apcu.ini /etc/php/conf.d/01_apcu.ini
 ADD conf.d/50_overrides.ini /etc/php/conf.d/50_overrides.ini
 ADD conf.d/01_newrelic.ini /etc/php/conf.d/01_newrelic.ini
-
-RUN if [[ "$PHP_VERSION" == "8.1" ]]; then \
-    rm /etc/php/conf.d/01_newrelic.ini; \
-fi
 
 # Drush uses /tmp.
 VOLUME /tmp
