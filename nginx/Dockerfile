@@ -6,7 +6,7 @@ ADD nginx.conf /etc/nginx/nginx.conf
 
 ADD default.conf /etc/nginx/conf.d/default.conf
 ADD status.conf /etc/nginx/conf.d/status.conf
-ADD security.conf /etc/nginx/conf.d/security.conf
+ADD security.conf /etc/nginx/overrides.d/security.conf
 RUN touch /etc/nginx/conf.d/http.conf
 
 # Configuration file used for overriding default.conf server configuration.
