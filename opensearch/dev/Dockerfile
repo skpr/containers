@@ -1,4 +1,4 @@
-FROM docker.io/opensearchproject/opensearch:latest
+FROM docker.io/opensearchproject/opensearch:1.1.0
 
 ENV OPENSEARCH_JAVA_OPTS="-Xms512m -Xmx512m"
 
