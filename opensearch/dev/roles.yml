@@ -24,6 +24,7 @@ writer:
         - "indices:admin/delete"
         - "indices:admin/open"
         - "indices:admin/close"
+        - "indices:admin/close[s]"
         - "indices:admin/mapping/put"
         - "indices:admin/settings/put"
         - "indices:admin/settings/update"
