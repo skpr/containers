@@ -69,7 +69,8 @@ RUN ln -s /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm && \
   yarn --version && \
   yarnpkg --version
 
-RUN apk --update --no-cache add ruby ruby-dev
+RUN apk --update --no-cache add ruby ruby-dev && \
+    gem install -N bundler:2.0.2
 
 # Install Github Hub
 RUN curl -sSL http://bins.skpr.io/hub-latest -o /usr/local/bin/hub && \
