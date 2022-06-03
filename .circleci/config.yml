@@ -7,6 +7,7 @@ dirs: &dirs
   - node
   - mysql
   - opensearch
+  - rsync
 
 php_versions: &php_versions
   - "7.4"
