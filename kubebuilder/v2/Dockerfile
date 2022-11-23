@@ -3,7 +3,7 @@ FROM golang:1.19
 RUN go install golang.org/x/lint/golint@latest && \
     go install github.com/mitchellh/gox@latest && \
     go install k8s.io/code-generator/cmd/client-gen@v0.21.0 && \
-    go install sigs.k8s.io/controller-tools/cmd/controller-gen@v0.2.4
+    go install sigs.k8s.io/controller-tools/cmd/controller-gen@v0.10.0
 
 ENV KUBEBUILDER_VERSION=2.3.1
 
