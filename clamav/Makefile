@@ -3,9 +3,9 @@
 REGISTRY=skpr/clamav
 
 build:
-	docker build -t $(REGISTRY):1.x .
+	docker build -t $(REGISTRY):2.x .
 
 push:
-	docker push $(REGISTRY):1.x
+	docker push $(REGISTRY):2.x
 
 .PHONY: *
