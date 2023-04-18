@@ -49,18 +49,4 @@ if [[ "${BASH_SOURCE[0]}" = "$0" ]]; then
             $CONNECTION_STRING -e "drop table $table"
         done
     fi
-
-    # Grep is wrapped in { COMMAND || true; } because it returns an exit code of 1 if no results are found.
-    # We have set -e for this script so if we don't do this wrapping the script will exit right here if no tables are found.
-    # This script will fail on new environments with an empty database and break initial imports.
-    VIEWS=$($CONNECTION_STRING -e 'show full tables where Table_Type = "VIEW"' | awk '{ print $1}' | { grep -v '^Tables' || true; } )
-
-    if [ "$VIEWS" != "" ]
-    then
-        for view in $VIEWS
-        do
-            info "Deleting view $DATABASE_NAME/$view"
-            $CONNECTION_STRING -e "drop view $view"
-        done
-    fi
 fi
