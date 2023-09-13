@@ -1,7 +1,6 @@
 version: 2.1
 
 dirs: &dirs
-  - clamav
   - kubebuilder
   - mysql
   - rsync
