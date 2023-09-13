@@ -1,3 +1,0 @@
-# Drush 9 configuration.
-options:
-  root: '/data/app'
