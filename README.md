@@ -1,10 +1,13 @@
-Skipper: Containers
-===================
+Skpr: Containers
+================
 
-Container suite for the Skipper platform.
+DEPRECIATED!
 
-## Build
+For links to our images see:
 
-```bash
-cd <container> && make build push
-```
+* https://github.com/skpr/image-nginx
+* https://github.com/skpr/image-php
+* https://github.com/skpr/image-mysql
+* https://github.com/skpr/image-node
+* https://github.com/skpr/image-clamav
+* https://github.com/skpr/image-opensearch
