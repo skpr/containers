@@ -4,7 +4,6 @@ dirs: &dirs
   - clamav
   - kubebuilder
   - nginx
-  - node
   - mysql
   - rsync
 
