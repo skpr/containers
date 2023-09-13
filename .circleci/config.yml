@@ -6,7 +6,6 @@ dirs: &dirs
   - nginx
   - node
   - mysql
-  - opensearch
   - rsync
 
 php_versions: &php_versions
