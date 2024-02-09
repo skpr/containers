@@ -1,4 +1,4 @@
-FROM golang:1.19
+FROM golang:1.21
 
 RUN go install golang.org/x/lint/golint@latest && \
     go install github.com/mitchellh/gox@latest && \
